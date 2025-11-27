@@ -1,0 +1,428 @@
+import React, { useState } from 'react';
+import { Heart, Users, Calendar, MapPin, CheckCircle, ArrowLeft, Star, MessageCircle, Shield, Sun } from 'lucide-react';
+
+const LandingPage = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Scroll to section handler
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
+
+  return (
+    <div dir="rtl" className="font-sans text-stone-800 bg-stone-50 overflow-x-hidden selection:bg-orange-200">
+      
+      {/* Navigation */}
+      <nav className="fixed w-full bg-white/95 backdrop-blur-sm border-b border-stone-100 z-50 transition-all duration-300">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex-shrink-0 flex items-center gap-2">
+              {/* Logo Placeholder */}
+              <div className="font-serif text-2xl font-bold text-stone-800 tracking-wider flex items-center gap-2">
+                <Sun className="text-orange-400 h-6 w-6" />
+                SHINE
+              </div> 
+            </div>
+            <div className="hidden md:flex space-x-8 space-x-reverse">
+              <button onClick={() => scrollToSection('about')} className="text-stone-600 hover:text-orange-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">מי אני</button>
+              <button onClick={() => scrollToSection('syllabus')} className="text-stone-600 hover:text-orange-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">מה נלמד</button>
+              <button onClick={() => scrollToSection('details')} className="text-stone-600 hover:text-orange-500 px-3 py-2 rounded-md text-sm font-medium transition duration-300">פרטים והרשמה</button>
+            </div>
+            <div className="hidden md:flex">
+              <button onClick={() => scrollToSection('pricing')} className="bg-stone-800 text-orange-50 px-7 py-2.5 rounded-full font-medium hover:bg-stone-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 border border-stone-800">
+                שמרו לי מקום
+              </button>
+            </div>
+            
+            {/* Mobile menu button */}
+            <div className="md:hidden flex items-center">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-stone-600 hover:text-stone-900 focus:outline-none p-2">
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {isMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-stone-50 border-t border-stone-200">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <button onClick={() => scrollToSection('about')} className="block w-full text-right px-3 py-2 rounded-md text-base font-medium text-stone-700 hover:text-orange-600 hover:bg-orange-50">מי אני</button>
+              <button onClick={() => scrollToSection('syllabus')} className="block w-full text-right px-3 py-2 rounded-md text-base font-medium text-stone-700 hover:text-orange-600 hover:bg-orange-50">מה נלמד</button>
+              <button onClick={() => scrollToSection('pricing')} className="block w-full text-right px-3 py-2 rounded-md text-base font-bold text-orange-600 bg-orange-50">הרשמה</button>
+            </div>
+          </div>
+        )}
+      </nav>
+
+      {/* Hero Section */}
+      <header className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 bg-[#FDFBF7] overflow-hidden">
+        {/* Organic Background Shapes */}
+        <div className="absolute top-0 right-0 w-2/3 h-full bg-orange-50/50 rounded-bl-[100px] pointer-events-none -z-10"></div>
+        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-stone-100 rounded-tr-[100px] pointer-events-none -z-10"></div>
+
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="text-center lg:text-right space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100/80 text-orange-800 font-semibold text-sm mb-4 border border-orange-200">
+                <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                מחזור חדש נפתח בקרוב | מפגשים פרונטליים
+              </div>
+              <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-bold text-stone-800 leading-[1.1]">
+                חזרה לזוגיות <br className="hidden lg:block" />
+                <span className="text-orange-500 italic relative">
+                  שבחרתי
+                  <svg className="absolute w-full h-3 -bottom-1 left-0 text-orange-200 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                    <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                  </svg>
+                </span>
+              </h1>
+              <p className="text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-light">
+                להחזיר את הלב, האינטימיות והתקשורת לזוגיות. <br/>
+                קורס עומק פרונטלי בו נלמד לרפא את פצעי העבר ולבנות קשר בטוח, קרוב ואוהב.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                <button onClick={() => scrollToSection('pricing')} className="flex items-center justify-center px-10 py-4 text-lg font-bold rounded-full text-white bg-orange-500 hover:bg-orange-600 transition duration-300 shadow-xl shadow-orange-200 hover:shadow-2xl transform hover:-translate-y-1">
+                  אני רוצה להצטרף
+                  <ArrowLeft className="mr-2 h-5 w-5" />
+                </button>
+                <button onClick={() => scrollToSection('syllabus')} className="flex items-center justify-center px-10 py-4 text-lg font-medium rounded-full text-stone-600 bg-white border border-stone-200 hover:bg-stone-50 transition duration-300">
+                  סילבוס הקורס
+                </button>
+              </div>
+              <div className="pt-8 flex flex-wrap justify-center lg:justify-start gap-x-8 gap-y-4 text-sm text-stone-500 font-medium">
+                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-stone-400"></div> קבוצה אינטימית</span>
+                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-stone-400"></div> מפגשים פרונטליים</span>
+                <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-stone-400"></div> 7 מפגשי עומק</span>
+              </div>
+            </div>
+            
+            <div className="relative mx-auto lg:mx-0 w-full max-w-lg lg:max-w-none">
+              <div className="relative z-10">
+                <div className="absolute inset-0 bg-stone-900/5 rounded-[2rem] transform rotate-3 scale-105"></div>
+                <img 
+                  src="https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                  alt="Couple holding hands" 
+                  className="w-full h-auto object-cover rounded-[2rem] shadow-2xl relative"
+                />
+                
+                {/* Floating Quote Card */}
+                <div className="absolute -bottom-8 -left-8 right-8 bg-white/95 backdrop-blur-md p-6 rounded-xl shadow-xl border border-stone-100">
+                  <p className="font-serif text-lg text-stone-800 italic">"השינוי מתחיל כשמפסיקים לחכות לאחר, ומתחילים לנוע בעצמנו."</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Pain Points Section */}
+      <section className="py-24 bg-white relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold text-stone-800 mb-4">לפעמים נדמה שהלופ לא נגמר...</h2>
+            <div className="w-24 h-1 bg-orange-300 mx-auto rounded-full"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="group p-8 rounded-3xl bg-[#FDFBF7] hover:bg-orange-50 transition duration-500 border border-stone-100 hover:border-orange-100">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm text-orange-400 group-hover:scale-110 transition duration-500">
+                <MessageCircle className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-stone-800 mb-3">הריב שחוזר על עצמו</h3>
+              <p className="text-stone-600 leading-relaxed">לא משנה על מה אתם מדברים - כלים, כסף או ילדים - אתם מוצאים את עצמכם שוב ושוב באותו מקום, עם אותן מילים ואותו תסכול.</p>
+            </div>
+
+            <div className="group p-8 rounded-3xl bg-[#FDFBF7] hover:bg-orange-50 transition duration-500 border border-stone-100 hover:border-orange-100">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm text-orange-400 group-hover:scale-110 transition duration-500">
+                <Users className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-stone-800 mb-3">לבד בתוך הזוגיות</h3>
+              <p className="text-stone-600 leading-relaxed">יש תחושה שהכל על הכתפיים שלכם. שלא רואים אתכם באמת, שאין שותפות אמיתית, ושאתם סוחבים את העגלה לבד.</p>
+            </div>
+
+            <div className="group p-8 rounded-3xl bg-[#FDFBF7] hover:bg-orange-50 transition duration-500 border border-stone-100 hover:border-orange-100">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm text-orange-400 group-hover:scale-110 transition duration-500">
+                <Shield className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-stone-800 mb-3">האינטימיות נשחקה</h3>
+              <p className="text-stone-600 leading-relaxed">המקום שאמור להיות הכי בטוח ונעים הפך לזירה של התגוננות. הלב נסגר, והמרחק הרגשי הולך וגדל.</p>
+            </div>
+
+            <div className="group p-8 rounded-3xl bg-[#FDFBF7] hover:bg-orange-50 transition duration-500 border border-stone-100 hover:border-orange-100">
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-sm text-orange-400 group-hover:scale-110 transition duration-500">
+                <Star className="h-6 w-6" />
+              </div>
+              <h3 className="text-xl font-bold text-stone-800 mb-3">ויתור עצמי</h3>
+              <p className="text-stone-600 leading-relaxed">אתם מוותרים על הרצונות שלכם רק כדי לשמור על שקט, ומרגישים שאתם נעלמים בתוך הקשר.</p>
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
+             <div className="inline-block bg-stone-900 text-stone-100 px-8 py-6 rounded-2xl relative">
+                <h3 className="text-2xl font-serif mb-2">זה לא חייב להיות ככה.</h3>
+                <p className="text-stone-300 font-light text-lg">
+                  הריבים והריחוק הם רק סימפטום. בקורס הזה נלמד לרפא את השורש.
+                </p>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Method Section */}
+      <section id="about" className="py-24 bg-[#EBE7E0]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+             <div className="order-2 md:order-1">
+               <div className="relative pl-8 pb-8">
+                 <div className="absolute inset-0 bg-white/30 rounded-3xl transform translate-x-4 translate-y-4"></div>
+                 {/* Placeholder for Michal's Image */}
+                 <img 
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Michal Slonim" 
+                    className="rounded-3xl shadow-xl w-full h-auto relative z-10 grayscale hover:grayscale-0 transition duration-700"
+                 />
+               </div>
+             </div>
+             
+             <div className="order-1 md:order-2 text-right">
+               <h2 className="font-serif text-4xl font-bold text-stone-800 mb-6">נעים להכיר, <span className="text-orange-600">אני מיכל סלונים</span></h2>
+               <div className="w-16 h-1 bg-orange-600 mb-8 rounded-full"></div>
+               
+               <div className="space-y-4 text-lg text-stone-700 font-light leading-relaxed">
+                 <p>
+                   מאמנת אישית וזוגית בשיטת סאטיה. אני מלווה אנשים וזוגות שרוצים להחזיר קרבה, תקשורת וחום לקשר שלהם.
+                 </p>
+                 <p>
+                   במשך שנים ראיתי זוגות שמנסים לפתור את הבעיות "מלמעלה" - דרך ניהול הבית או חלוקת תפקידים. אבל האמת היא ששינוי אמיתי מתחיל עמוק יותר, במקומות שבהם אנחנו פוגשים את הכאבים הישנים שלנו.
+                 </p>
+                 <p>
+                   בקורס "חזרה לזוגיות שבחרתי" פיתחתי שיטה המשלבת עבודת עומק רגשית, זיהוי פצעי ילדות וכלים פרקטיים לתקשורת מקרבת. אני מזמינה אתכם למסע שבו תגלו שלא צריך לחכות שהצד השני ישתנה - השינוי מתחיל בכם.
+                 </p>
+               </div>
+
+               <div className="grid grid-cols-3 gap-6 mt-10">
+                 <div className="text-center">
+                   <div className="font-serif text-3xl font-bold text-stone-800">7</div>
+                   <div className="text-sm text-stone-500 mt-1">מפגשים</div>
+                 </div>
+                 <div className="text-center border-r border-stone-300">
+                   <div className="font-serif text-3xl font-bold text-stone-800">100%</div>
+                   <div className="text-sm text-stone-500 mt-1">אחריות</div>
+                 </div>
+                 <div className="text-center border-r border-stone-300">
+                   <div className="font-serif text-3xl font-bold text-stone-800">∞</div>
+                   <div className="text-sm text-stone-500 mt-1">כלים לחיים</div>
+                 </div>
+               </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Syllabus Section */}
+      <section id="syllabus" className="py-24 bg-stone-900 text-stone-100 relative overflow-hidden">
+        {/* Soft lighting effects */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-900/30 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-6 text-orange-50">מסע של 7 צעדים לזוגיות חדשה</h2>
+            <p className="text-stone-400 text-lg">
+              תוכנית לימודים סדורה ומעמיקה, שתעזור לכם לעבור תהליך משמעותי - גם אם בן/בת הזוג לא נמצאים בחדר.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              { num: 1, title: "היכרות וחזון", desc: "מיפוי המצב הקיים, מה עובד ומה לא, ויצירת חזון לזוגיות הרצויה." },
+              { num: 2, title: "לקיחת אחריות ופיתוח אונים", desc: "הבנת החלק שלי בדינמיקה, השתקפויות, ואיך יוצאים מחוסר אונים לפעולה." },
+              { num: 3, title: "תחושות גוף וריפוי", desc: "חיבור לגוף כמצפן רגשי, זיהוי טריגרים פיזיים ולמידת שפת הגוף." },
+              { num: 4, title: "פצעי ילדות - עומק", desc: "זיהוי הפצעים שמנהלים אותנו בזוגיות ועבודה על ריפוי הילד/ה הפנימי/ת." },
+              { num: 5, title: "תקשורת מחברת", desc: "כלים לניהול שיחה גם ברגעי משבר, איך לריב נכון ולהישאר קרובים." },
+              { num: 6, title: "רגשות קשים: כעס, פחד וכאב", desc: "איך לעבוד עם רגשות 'שליליים' כמנוע לצמיחה במקום להרס." },
+              { num: 7, title: "סיכום וצידה לדרך", desc: "אינטגרציה של כל הכלים, השלמה ויצירת תוכנית להמשך הדרך." }
+            ].map((item, idx) => (
+              <div key={idx} className="group flex items-start p-6 rounded-xl hover:bg-stone-800 transition duration-300 border border-stone-800 hover:border-stone-700">
+                <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-full bg-stone-800 text-orange-400 font-serif font-bold text-xl group-hover:bg-orange-500 group-hover:text-white transition duration-300 ml-6">
+                  {item.num}
+                </span>
+                <div>
+                  <h3 className="text-xl font-bold text-orange-100 mb-2 font-serif">{item.title}</h3>
+                  <p className="text-stone-400 font-light">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-[#FDFBF7]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+           <h2 className="font-serif text-4xl font-bold text-center text-stone-800 mb-16">מילים מהקליניקה</h2>
+           <div className="grid md:grid-cols-2 gap-10">
+              <div className="bg-white p-10 rounded-tl-3xl rounded-br-3xl shadow-sm border border-stone-100 relative group hover:shadow-md transition duration-500">
+                 <div className="text-8xl text-orange-100 absolute -top-8 -right-4 font-serif leading-none group-hover:text-orange-200 transition">"</div>
+                 <p className="text-stone-600 mb-8 relative z-10 leading-relaxed text-lg">
+                   הייתי בטוחה שהוא לא מתחייב כי אני לא מספיק טובה. כל פעם שדיברנו על העתיד זה נגמר בפיצוץ. בקורס גיליתי שהתחושה 'אני לא מספיק' חיה אצלי מילדות. כשהתחלתי לרפא את הפצע הזה, השיחות בינינו השתנו לגמרי. גיליתי שהפחד שלו בכלל לא היה קשור אליי.
+                 </p>
+                 <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-lg">י'</div>
+                    <div>
+                       <div className="font-bold text-stone-900">משתתפת בקורס</div>
+                       <div className="text-sm text-stone-500">נשואה + 2</div>
+                    </div>
+                 </div>
+              </div>
+
+              <div className="bg-white p-10 rounded-tl-3xl rounded-br-3xl shadow-sm border border-stone-100 relative group hover:shadow-md transition duration-500">
+                 <div className="text-8xl text-orange-100 absolute -top-8 -right-4 font-serif leading-none group-hover:text-orange-200 transition">"</div>
+                 <p className="text-stone-600 mb-8 relative z-10 leading-relaxed text-lg">
+                   הרגשתי שהכל עליי, שהוא לא שותף. הייתי בודדה בתוך הזוגיות. כשהעמקתי בתהליך, הבנתי שתחושת הלבדות ליוותה אותי תמיד. כשהצלחתי לשתף אותו ממקום פגיע ולא מאשים - הוא סוף סוף שמע אותי. פתאום אנחנו מתקשרים אחרת לגמרי.
+                 </p>
+                 <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold text-lg">מ'</div>
+                    <div>
+                       <div className="font-bold text-stone-900">בוגרת התהליך</div>
+                       <div className="text-sm text-stone-500">בזוגיות פרק ב'</div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
+
+      {/* Pricing / Details Section */}
+      <section id="pricing" className="py-24 bg-white relative">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-serif text-4xl font-bold text-stone-800 mb-4">ההשקעה שלכם בזוגיות</h2>
+            <p className="text-stone-500 text-lg">הקורס מתקיים פרונטלית, בקבוצה אינטימית המאפשרת תהליך אישי ועמוק.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            {/* Standard Plan */}
+            <div className="bg-stone-50 rounded-3xl p-8 border border-stone-200 hover:border-orange-300 transition duration-300 relative">
+               <h3 className="font-serif text-2xl font-bold text-stone-800 mb-2">קורס "חזרה לזוגיות"</h3>
+               <p className="text-stone-500 mb-8">תהליך עומק קבוצתי של 7 מפגשים</p>
+               
+               <div className="mb-8 p-6 bg-white rounded-2xl text-center border border-stone-100 shadow-sm">
+                 <span className="block text-4xl font-bold text-stone-800">₪2,100</span>
+                 <span className="text-stone-400 line-through text-lg">₪2,800</span>
+                 <div className="text-orange-600 text-sm font-medium mt-1 bg-orange-50 inline-block px-3 py-1 rounded-full">מחיר הרשמה מוקדמת</div>
+               </div>
+
+               <ul className="space-y-4 mb-8 text-right pr-2">
+                 {[
+                   "7 מפגשים פרונטליים מלאים",
+                   "גישה לקבוצת וואטסאפ מלווה",
+                   "חומרי עזר וסיכומים לכל שיעור",
+                   "כיבוד קל ושתייה במפגשים",
+                   "הנחייה צמודה של מיכל סלונים"
+                 ].map((feat, i) => (
+                   <li key={i} className="flex items-start gap-3">
+                     <CheckCircle className="h-5 w-5 text-stone-400 flex-shrink-0 mt-0.5" />
+                     <span className="text-stone-600">{feat}</span>
+                   </li>
+                 ))}
+               </ul>
+               
+               <button className="w-full py-4 rounded-xl border-2 border-stone-800 text-stone-800 font-bold hover:bg-stone-800 hover:text-white transition duration-300">
+                 אני רוצה להירשם לקורס
+               </button>
+            </div>
+
+            {/* VIP Plan */}
+            <div className="bg-white rounded-3xl p-8 border-2 border-orange-400 shadow-xl shadow-orange-100 relative transform md:-translate-y-4">
+               <div className="absolute top-0 right-0 left-0 bg-orange-400 text-white text-center text-sm font-bold py-2 rounded-t-lg tracking-wide uppercase">המסלול המומלץ</div>
+               <div className="mt-4">
+                 <h3 className="font-serif text-2xl font-bold text-stone-800 mb-2">מסלול VIP משולב</h3>
+                 <p className="text-stone-500 mb-8">הקורס הקבוצתי + ליווי אישי צמוד</p>
+               </div>
+               
+               <div className="mb-8 p-6 bg-orange-50 rounded-2xl text-center border border-orange-100">
+                 <div className="flex items-baseline justify-center gap-2">
+                   <span className="text-5xl font-bold text-orange-900">₪3,150</span>
+                   <span className="text-stone-400 text-lg">סה"כ</span>
+                 </div>
+                 <div className="text-orange-600 text-sm font-medium mt-2">חיסכון של ₪350 על האימונים</div>
+               </div>
+
+               <ul className="space-y-4 mb-8 text-right pr-2">
+                 {[
+                   "כל תכני הקורס הפרונטלי (7 מפגשים)",
+                   "7 אימונים אישיים (1:1) להעמקה",
+                   "ליווי צמוד ומותאם אישית",
+                   "גישה ישירה להתייעצות",
+                   "הטמעה מדויקת של הכלים לחיים שלך"
+                 ].map((feat, i) => (
+                   <li key={i} className="flex items-start gap-3">
+                     <CheckCircle className="h-5 w-5 text-orange-500 flex-shrink-0 mt-0.5" />
+                     <span className="text-stone-800 font-medium">{feat}</span>
+                   </li>
+                 ))}
+               </ul>
+               
+               <button className="w-full py-4 rounded-xl bg-orange-500 text-white font-bold hover:bg-orange-600 transition shadow-lg shadow-orange-200">
+                 אני רוצה את המסלול המשולב
+               </button>
+               <p className="text-center text-xs text-stone-400 mt-3">מספר המקומות במסלול זה מוגבל</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Details Banner */}
+      <section id="details" className="bg-stone-900 text-white py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 text-center md:text-right">
+            <div>
+               <h3 className="font-serif text-3xl font-bold mb-4">מוכנים לצאת לדרך?</h3>
+               <div className="flex flex-col md:flex-row gap-8 text-stone-300 text-lg">
+                  <span className="flex items-center justify-center md:justify-start gap-3"><Calendar className="text-orange-400"/> מתחילים ב-9/12 (יום ה')</span>
+                  <span className="flex items-center justify-center md:justify-start gap-3"><Users className="text-orange-400"/> 7 מפגשים שבועיים</span>
+                  <span className="flex items-center justify-center md:justify-start gap-3"><MapPin className="text-orange-400"/> מיקום: יישלח לנרשמים (מרכז)</span>
+               </div>
+            </div>
+            <button onClick={() => scrollToSection('pricing')} className="bg-orange-500 hover:bg-orange-600 text-white px-10 py-4 rounded-full font-bold transition shadow-lg shadow-orange-900/50">
+              שריינו מקום עכשיו
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-stone-50 py-12 border-t border-stone-200">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="mb-6 flex flex-col items-center">
+            <div className="font-serif text-2xl font-bold text-stone-800 tracking-wider flex items-center gap-2 mb-2">
+               <Sun className="text-orange-400 h-5 w-5" />
+               SHINE
+            </div>
+            <p className="text-stone-500">מיכל סלונים - אימון לחיים ולזוגיות</p>
+          </div>
+          <div className="flex justify-center gap-8 mb-8">
+             <a href="#" className="text-stone-400 hover:text-orange-600 transition">אינסטגרם</a>
+             <a href="#" className="text-stone-400 hover:text-orange-600 transition">פייסבוק</a>
+             <a href="#" className="text-stone-400 hover:text-orange-600 transition">וואטסאפ</a>
+          </div>
+          <p className="text-sm text-stone-400">© 2024 כל הזכויות שמורות למיכל סלונים</p>
+        </div>
+      </footer>
+
+    </div>
+  );
+};
+
+export default LandingPage;
