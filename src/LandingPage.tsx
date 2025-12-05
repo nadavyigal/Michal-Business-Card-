@@ -209,29 +209,29 @@ const LandingPage: React.FC = () => {
             <div className="flex items-center gap-5">
               <img src={logo} alt="Shine by Michal Slonim" className="h-16 w-auto rounded-2xl shadow-xl border-2 border-[var(--brand-border)]" />
               <div className="hidden sm:flex flex-col leading-tight">
-                <span className="font-display font-bold text-[var(--brand-ink)] text-xl">בחזרה לזוגיות שבחרתי</span>
-                <span className="text-sm text-[var(--brand-accent)] font-medium">מסע עומק של 7 מפגשים להתפתחות אישית וזוגיות</span>
+                <span className="font-display font-bold text-[var(--brand-ink)] text-2xl">בחזרה לזוגיות שבחרתי</span>
+                <span className="text-base text-[var(--brand-accent)] font-semibold">מסע עומק של 7 מפגשים להתפתחות אישית וזוגיות</span>
               </div>
             </div>
 
-            <div className="hidden md:flex items-center space-x-10 space-x-reverse font-semibold text-[var(--brand-ink)]">
-              <button onClick={() => scrollToSection('about')} className="relative group text-base">
+            <div className="hidden md:flex items-center space-x-10 space-x-reverse font-bold text-[var(--brand-ink)]">
+              <button onClick={() => scrollToSection('about')} className="relative group text-lg">
                 <span className="hover:text-[var(--brand-accent)] transition-colors duration-300">למה הקורס</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </button>
-              <button onClick={() => scrollToSection('fit')} className="relative group text-base">
+              <button onClick={() => scrollToSection('fit')} className="relative group text-lg">
                 <span className="hover:text-[var(--brand-accent)] transition-colors duration-300">למי מתאים</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </button>
-              <button onClick={() => scrollToSection('program')} className="relative group text-base">
+              <button onClick={() => scrollToSection('program')} className="relative group text-lg">
                 <span className="hover:text-[var(--brand-accent)] transition-colors duration-300">תוכן עניינים</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </button>
-              <button onClick={() => scrollToSection('faq')} className="relative group text-base">
+              <button onClick={() => scrollToSection('faq')} className="relative group text-lg">
                 <span className="hover:text-[var(--brand-accent)] transition-colors duration-300">שאלות ותשובות</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </button>
-              <button onClick={() => scrollToSection('pricing')} className="relative group text-base">
+              <button onClick={() => scrollToSection('pricing')} className="relative group text-lg">
                 <span className="hover:text-[var(--brand-accent)] transition-colors duration-300">מחירים</span>
                 <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[var(--brand-accent)] scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </button>
@@ -343,9 +343,9 @@ const LandingPage: React.FC = () => {
               </div>
               <button
                 onClick={() => scrollToSection('cta')}
-                className="group font-semibold text-[var(--brand-accent)] underline decoration-[var(--brand-accent)]/50 hover:decoration-[var(--brand-accent)] underline-offset-4 transition-all text-base animate-fade-in-up delay-500 min-h-[44px] flex items-center justify-center"
+                className="group font-bold text-[var(--brand-accent)] underline decoration-[var(--brand-accent)]/50 hover:decoration-[var(--brand-accent)] underline-offset-4 transition-all text-xl animate-fade-in-up delay-500 min-h-[44px] flex items-center justify-center"
               >
-                <MessageCircle className="w-5 h-5 inline-block ml-2" />
+                <MessageCircle className="w-6 h-6 inline-block ml-2" />
                 אשמח לתאם שיחת יעוץ
               </button>
             </div>
@@ -354,23 +354,23 @@ const LandingPage: React.FC = () => {
               {/* Decorative elements behind card */}
               <div className="absolute -inset-4 bg-gradient-to-br from-[var(--brand-gold)]/20 to-[var(--brand-terracotta)]/20 blur-2xl rounded-3xl opacity-60" />
 
-              <div className="relative bg-white/98 backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-white overflow-hidden transform hover:scale-[1.03] hover:rotate-1 transition-all duration-700">
+              <div className="relative bg-white backdrop-blur-2xl rounded-3xl shadow-2xl border-2 border-[var(--brand-border)] overflow-hidden transform hover:scale-[1.03] hover:rotate-1 transition-all duration-700">
                 <div className="h-80 relative overflow-hidden">
                   <img src={heroCouple} alt="זוג מחזיק ידיים" className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
-                <div className="p-12 space-y-6 text-right grain-overlay">
-                  <div className="flex items-center justify-between text-sm text-[var(--brand-accent)] font-semibold gap-6">
-                    <div className="flex items-center gap-2">
+                <div className="p-8 md:p-12 space-y-6 text-right bg-white">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between text-sm font-semibold gap-3">
+                    <div className="flex items-center gap-2 text-[var(--brand-accent)]">
                       <Calendar className="w-5 h-5" />
                       <span>ימי שלישי · 9/12/25–13/1/26 · 10:00-13:00</span>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 text-[var(--brand-accent)]">
                       <MessageCircle className="w-5 h-5" />
                       <span>קבוצה קטנה, מענה אישי</span>
                     </div>
                   </div>
-                  <p className="text-2xl md:text-3xl font-display font-semibold text-[var(--brand-ink)] leading-snug">
+                  <p className="text-xl md:text-2xl font-display font-semibold text-[var(--brand-ink)] leading-snug">
                     "לא רק להבין מה קורה – אלא לחיות אחרת. לרפא את הפחדים, הפגיעויות ופצעי הילדות ולבחור מחדש בחיבור."
                   </p>
                   <div className="flex items-center gap-5 pt-4">
@@ -399,8 +399,8 @@ const LandingPage: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            <h2 className="font-display font-bold text-[var(--brand-ink)]">האם הסיטואציה מוכרת לכם?</h2>
-            <p className="text-xl md:text-2xl text-[var(--brand-accent)] font-medium">כי אתם לא לבד</p>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[var(--brand-ink)]">האם הסיטואציה מוכרת לכם?</h2>
+            <p className="text-2xl md:text-3xl text-[var(--brand-accent)] font-semibold">כי אתם לא לבד</p>
           </div>
 
           <div className="mt-20 grid md:grid-cols-2 gap-8">
@@ -414,7 +414,7 @@ const LandingPage: React.FC = () => {
                   <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-terracotta)] flex items-center justify-center shadow-lg">
                     <CheckCircle className="w-6 h-6 text-white" />
                   </div>
-                  <p className="text-lg text-[var(--brand-ink)] leading-relaxed font-medium pt-1">{item}</p>
+                  <p className="text-xl text-[#2d2520] leading-relaxed font-semibold pt-1">{item}</p>
                 </div>
               </div>
             ))}
@@ -431,7 +431,7 @@ const LandingPage: React.FC = () => {
             <div className="lg:col-span-1 space-y-7">
               <p className="text-sm font-bold text-[var(--brand-accent)] uppercase tracking-[0.3em]">למי זה מתאים</p>
               <h2 className="font-display font-bold text-[var(--brand-ink)] leading-tight">למי שמרגיש ש...</h2>
-              <p className="text-xl text-[var(--brand-ink)]/70 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 אם את.ה מרגיש.ה שהלב שלך מוכן לעומק נוסף – אם משהו בתוכך יודע שיש עוד שכבה לחקור, לרפא, ולבחור בה מחדש – אני מזמינה אותך להצטרף למסע הזה. לא בשביל לתקן – אלא כדי לחזור. לעצמך. ולזוגיות שבחרת.
               </p>
             </div>
@@ -447,7 +447,7 @@ const LandingPage: React.FC = () => {
                     <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-[var(--brand-accent)]/20 to-[var(--brand-terracotta)]/20 flex items-center justify-center border-2 border-[var(--brand-accent)]/30 group-hover:border-[var(--brand-accent)] transition-colors duration-300">
                       <Heart className="w-6 h-6 text-[var(--brand-accent)]" />
                     </div>
-                    <p className="text-lg text-[var(--brand-ink)] leading-relaxed font-medium pt-2">{item}</p>
+                    <p className="text-xl text-[#2d2520] leading-relaxed font-semibold pt-2">{item}</p>
                   </div>
                 </div>
               ))}
@@ -458,19 +458,33 @@ const LandingPage: React.FC = () => {
 
       <section className="py-20 sm:py-28 bg-white/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto space-y-5">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)]">מה מחכה לך בקורס?</h2>
-            <p className="text-xl md:text-2xl text-[#5a4f4b] font-light">שילוב של תהליך עומק אישי וקבוצתי, עם כלים מעולמות שונים</p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="order-2 lg:order-1">
+              <div className="text-center lg:text-right max-w-4xl space-y-5">
+                <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)]">מה מחכה לך בקורס?</h2>
+                <p className="text-xl md:text-2xl text-[#2d2520] font-medium leading-relaxed">שילוב של תהליך עומק אישי וקבוצתי, עם כלים מעולמות שונים</p>
+              </div>
+            </div>
+            <div className="order-1 lg:order-2">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-br from-[var(--brand-accent)]/20 to-[var(--brand-gold)]/20 blur-2xl rounded-3xl opacity-60" />
+                <img
+                  src={heartHands}
+                  alt="חיבור וקרבה"
+                  className="relative rounded-3xl shadow-2xl border-4 border-white w-full"
+                />
+              </div>
+            </div>
           </div>
           <div className="mt-16 grid md:grid-cols-2 gap-8">
             {details.map((item) => (
               <div
                 key={item}
-                className="group p-8 bg-[var(--brand-surface)] rounded-3xl border-2 border-[var(--brand-border)] shadow-md transition-all duration-300 transform hover:-translate-y-3 hover:shadow-2xl hover:border-[var(--brand-accent)]/70"
+                className="group p-8 bg-white rounded-3xl border-2 border-[var(--brand-border)] shadow-md transition-all duration-300 transform hover:-translate-y-3 hover:shadow-2xl hover:border-[var(--brand-accent)]/70"
               >
                 <div className="flex items-start gap-4">
                   <Shield className="w-6 h-6 text-[var(--brand-accent)] mt-1 flex-shrink-0" />
-                  <p className="text-lg text-[var(--brand-ink)] leading-relaxed font-medium">{item}</p>
+                  <p className="text-lg text-[#2d2520] leading-relaxed font-medium">{item}</p>
                 </div>
               </div>
             ))}
@@ -485,14 +499,14 @@ const LandingPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-20">
             <div className="space-y-6">
-              <p className="text-sm font-bold text-[var(--brand-accent)] uppercase tracking-[0.3em]">מבנה הקורס</p>
-              <h2 className="font-display font-bold text-[var(--brand-ink)] leading-tight">מבנה הקורס ותוכן עניינים</h2>
-              <p className="text-xl text-[var(--brand-ink)]/70 leading-relaxed max-w-2xl">
+              <p className="text-base font-bold text-[var(--brand-accent)] uppercase tracking-[0.3em]">מבנה הקורס</p>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[var(--brand-ink)] leading-tight">מבנה הקורס ותוכן עניינים</h2>
+              <p className="text-xl text-[#2d2520] leading-relaxed max-w-2xl font-medium">
                 בקורס הזה נרד לעומק. לא רק נבין מה קורה – אלא איך אפשר לחיות אחרת, איך לרפא את המקומות שמנהלים את הקשר מתחת לפני השטח: הפחדים. הפגיעויות. דפוסי ההתקשרות. פצעי הילדות. ונלמד איך להתנהל אחרת – מעמדה חדשה של עוצמה, חמלה, קבלה ובחירה מחודשת.
               </p>
             </div>
-            <div className="flex items-center gap-4 text-base font-semibold text-[var(--brand-accent)] bg-white px-8 py-5 rounded-full border-2 border-[var(--brand-border)] shadow-xl">
-              <Clock className="w-6 h-6" />
+            <div className="flex items-center gap-4 text-lg font-bold text-[#2d2520] bg-white px-8 py-5 rounded-full border-2 border-[var(--brand-border)] shadow-xl">
+              <Clock className="w-7 h-7 text-[var(--brand-accent)]" />
               <span>21 שעות לימוד · חלל קסום בתל אביב</span>
             </div>
           </div>
@@ -511,11 +525,11 @@ const LandingPage: React.FC = () => {
                     <Star className="w-6 h-6 text-[var(--brand-accent)]" />
                   </div>
                 </div>
-                <ul className="relative space-y-4 text-base text-[var(--brand-ink)]/80">
+                <ul className="relative space-y-4 text-lg text-[#2d2520]">
                   {module.points.map((bullet) => (
                     <li key={bullet} className="flex items-start gap-4">
                       <span className="mt-2 flex-shrink-0 w-2 h-2 rounded-full bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-terracotta)]" />
-                      <span className="leading-relaxed font-medium">{bullet}</span>
+                      <span className="leading-relaxed font-semibold">{bullet}</span>
                     </li>
                   ))}
                 </ul>
@@ -527,22 +541,36 @@ const LandingPage: React.FC = () => {
 
       <section className="py-20 sm:py-28 bg-white/95">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-4xl mx-auto space-y-5">
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)]">תכלס... עם מה תצאו מהקורס</h2>
-            <p className="text-xl md:text-2xl text-[#5a4f4b] font-light">11 שינויים משמעותיים שישאירו חותם אמיתי בחייכם</p>
+          <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
+            <div className="order-1 lg:order-1">
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-br from-[var(--brand-accent)]/20 to-[var(--brand-gold)]/20 blur-2xl rounded-3xl opacity-60" />
+                <img
+                  src={heroCouple}
+                  alt="זוג מחובר"
+                  className="relative rounded-3xl shadow-2xl border-4 border-white w-full"
+                />
+              </div>
+            </div>
+            <div className="order-2 lg:order-2">
+              <div className="text-center lg:text-right max-w-4xl space-y-5">
+                <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)]">תכלס... עם מה תצאו מהקורס</h2>
+                <p className="text-xl md:text-2xl text-[#2d2520] font-medium leading-relaxed">11 שינויים משמעותיים שישאירו חותם אמיתי בחייכם</p>
+              </div>
+            </div>
           </div>
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {outcomes.map((item, idx) => (
               <div
                 key={item.title}
-                className="group relative p-8 bg-[var(--brand-surface)] rounded-3xl border-2 border-[var(--brand-border)] shadow-md transition-all duration-300 transform hover:-translate-y-3 hover:shadow-2xl hover:border-[var(--brand-accent)]/80"
+                className="group relative p-8 bg-white rounded-3xl border-2 border-[var(--brand-border)] shadow-md transition-all duration-300 transform hover:-translate-y-3 hover:shadow-2xl hover:border-[var(--brand-accent)]/80"
               >
                 <div className="absolute top-4 left-4 w-12 h-12 rounded-full bg-gradient-to-br from-[var(--brand-cream)] to-[#f5d5c9] text-[var(--brand-accent)] font-bold text-lg flex items-center justify-center shadow-md">
                   {idx + 1}
                 </div>
                 <div className="pt-8 space-y-3">
                   <h3 className="text-xl font-bold text-[var(--brand-ink)] font-display">{item.title}</h3>
-                  <p className="text-base text-[#4d413d] leading-relaxed">{item.text}</p>
+                  <p className="text-base text-[#2d2520] leading-relaxed font-medium">{item.text}</p>
                 </div>
               </div>
             ))}
@@ -555,14 +583,14 @@ const LandingPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)]">מיכל סלונים</h2>
-              <p className="text-xl text-[#5a4f4b] leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 שמי מיכל סלונים, מאמנת אישית וזוגית בשיטת סאטיה, מאמנת מנהלים וצוותים ומלווה ארגונים בתהליכי התפתחות והשבחת ההון האנושי.
               </p>
-              <p className="text-xl text-[#5a4f4b] leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 אני בעלת תואר ראשון במנהל עסקים, ובעברי סוכנת ביטוח במשך למעלה מעשור – עד שגיליתי את עולם האימון, והתאהבתי.
                 החזון שלי הוא לאפשר לאנשים לפרוץ דרך במקומות שבהם הם מרגישים תקועים, ולהתחבר מחדש לעצמם – מתוך יציבות פנימית, אהבה וביטחון.
               </p>
-              <p className="text-xl text-[#5a4f4b] leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 את הקורס הזה יצרתי מתוך עשרות שיחות עם מתאמנים שמרגישים שהם "חיים ליד" – עם געגוע למה שהיה פעם, אבל לא יודעים איך לגשר על המרחק שנוצר.
                 ראיתי שוב ושוב איך תקשורת נתקעת, איך פצעים ישנים מתעוררים, ואיך גם כשרק צד אחד בוחר להשתנות – משהו עמוק יכול לקרות בזוגיות.
                 עם ניסיון של למעלה מעשור בעולם האימון ומאות שעות ליווי – אני מביאה לקורס הזה את כל מה שלמדתי, פגשתי וחוויתי.
@@ -570,16 +598,16 @@ const LandingPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="bg-[var(--brand-surface)] rounded-3xl shadow-2xl border-2 border-[var(--brand-border)] overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
-              <div className="h-80">
-                <img src={michalPhoto} alt="מיכל סלונים" className="w-full h-full object-cover" />
+            <div className="bg-white rounded-3xl shadow-2xl border-2 border-[var(--brand-border)] overflow-hidden transform hover:scale-[1.02] transition-transform duration-300">
+              <div className="h-[500px]">
+                <img src={michalPhoto} alt="מיכל סלונים" className="w-full h-full object-cover object-[center_20%]" />
               </div>
-              <div className="p-10 space-y-5">
-                <div className="flex items-center gap-4 text-base text-[#5a4f4b] font-medium">
+              <div className="p-10 space-y-5 bg-white">
+                <div className="flex items-center gap-4 text-base text-[#2d2520] font-semibold">
                   <Shield className="w-6 h-6 text-[var(--brand-accent)]" />
                   מאמנת אישית, זוגיות ופיתוח הון אנושי בארגון
                 </div>
-                <div className="text-xl text-[#4d413d] leading-relaxed font-display font-semibold">
+                <div className="text-xl text-[#2d2520] leading-relaxed font-display font-bold">
                   "מה שבאמת אפשרי" הוא המצפן. לא עוד לחכות שהפרטנר ישתנה – אלא לבחור אחרת, מבפנים החוצה.
                 </div>
               </div>
@@ -595,8 +623,8 @@ const LandingPage: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            <h2 className="font-display font-bold text-[var(--brand-ink)]">כמה זה עולה?</h2>
-            <p className="text-xl md:text-2xl text-[var(--brand-accent)] font-medium">מחירים, בונוסים והזדמנות להעמיק עם אימון אישי.</p>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[var(--brand-ink)]">כמה זה עולה?</h2>
+            <p className="text-2xl md:text-3xl text-[var(--brand-accent)] font-semibold">מחירים, בונוסים והזדמנות להעמיק עם אימון אישי.</p>
           </div>
 
           <div className="mt-20 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -605,7 +633,7 @@ const LandingPage: React.FC = () => {
                 key={block.label}
                 className={`group relative p-8 md:p-10 rounded-3xl shadow-xl border-2 transition-all duration-500 transform hover:-translate-y-3 hover:shadow-2xl grain-overlay flex flex-col ${
                   block.featured
-                    ? 'bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] border-[var(--brand-accent)] md:scale-105'
+                    ? 'bg-gradient-to-br from-[#8b5a4a] via-[#7d4a3d] to-[#6d3f34] border-[#8b5a4a] md:scale-105'
                     : 'bg-white border-[var(--brand-border)] hover:border-[var(--brand-accent)]'
                 }`}
               >
@@ -631,7 +659,7 @@ const LandingPage: React.FC = () => {
                     <h3 className={`text-2xl md:text-3xl font-display font-bold mb-2 ${block.featured ? 'text-white' : 'text-[var(--brand-ink)]'}`}>
                       {block.label}
                     </h3>
-                    <p className={`text-sm ${block.featured ? 'text-white/80' : 'text-[var(--brand-ink)]/60'}`}>
+                    <p className={`text-base font-medium ${block.featured ? 'text-white/90' : 'text-[#2d2520]'}`}>
                       {block.note}
                     </p>
                   </div>
@@ -648,7 +676,7 @@ const LandingPage: React.FC = () => {
                       )}
                     </div>
                     {block.breakdown && (
-                      <p className={`text-sm ${block.featured ? 'text-white/70' : 'text-[var(--brand-ink)]/60'}`}>
+                      <p className={`text-base font-medium ${block.featured ? 'text-white/80' : 'text-[#2d2520]'}`}>
                         {block.breakdown}
                       </p>
                     )}
@@ -665,7 +693,7 @@ const LandingPage: React.FC = () => {
                     {block.features.map((feature) => (
                       <div key={feature} className="flex items-start gap-3">
                         <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${block.featured ? 'text-white' : 'text-[var(--brand-accent)]'}`} />
-                        <span className={`text-base ${block.featured ? 'text-white/90' : 'text-[var(--brand-ink)]/80'}`}>
+                        <span className={`text-lg font-medium ${block.featured ? 'text-white' : 'text-[#2d2520]'}`}>
                           {feature}
                         </span>
                       </div>
@@ -677,12 +705,12 @@ const LandingPage: React.FC = () => {
                       block.featured ? 'bg-white/10 border-white/30' : 'bg-green-50 border-green-300'
                     }`}>
                       <div className="flex items-start gap-3">
-                        <Gift className={`w-5 h-5 flex-shrink-0 ${block.featured ? 'text-white' : 'text-green-600'}`} />
+                        <Gift className={`w-6 h-6 flex-shrink-0 ${block.featured ? 'text-white' : 'text-green-700'}`} />
                         <div className="flex-1">
-                          <p className={`font-bold text-sm mb-1 ${block.featured ? 'text-white' : 'text-green-800'}`}>
+                          <p className={`font-bold text-base mb-1 ${block.featured ? 'text-white' : 'text-green-900'}`}>
                             בונוס מיוחד כלול במחיר!
                           </p>
-                          <p className={`text-sm ${block.featured ? 'text-white/80' : 'text-green-700'}`}>
+                          <p className={`text-base font-medium ${block.featured ? 'text-white/90' : 'text-green-800'}`}>
                             קורס "מחוברים מחדש" דיגיטלי במתנה (שווי ₪297)
                           </p>
                         </div>
@@ -694,7 +722,7 @@ const LandingPage: React.FC = () => {
                     onClick={() => scrollToSection('cta')}
                     className={`w-full py-5 px-6 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl ${
                       block.featured
-                        ? 'bg-white text-[var(--brand-accent)] hover:bg-white/95'
+                        ? 'bg-white text-[#6d3f34] hover:bg-white/95 border-2 border-white'
                         : 'bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] text-white hover:shadow-2xl'
                     }`}
                   >
@@ -705,7 +733,7 @@ const LandingPage: React.FC = () => {
             ))}
           </div>
 
-          <div className="mt-10 text-xl text-[var(--brand-accent)] text-center font-semibold bg-white/80 backdrop-blur-sm py-5 px-8 rounded-2xl border-2 border-[var(--brand-border)] shadow-lg">
+          <div className="mt-10 text-lg md:text-xl text-white text-center font-bold bg-gradient-to-r from-red-600 to-orange-600 py-6 px-8 rounded-2xl border-2 border-red-700 shadow-xl">
             ⏰ הרשמה מוקדמת עד 29/11/25 - חיסכון עד ₪1,347!
           </div>
 
@@ -789,7 +817,7 @@ const LandingPage: React.FC = () => {
                   קנו את הקורס הדיגיטלי
                 </button>
 
-                <p className="text-sm text-[var(--brand-ink)]/60 text-center mt-4">
+                <p className="text-base text-[#2d2520] text-center mt-4 font-medium">
                   💡 הקורס הזה כלול במתנה בכל אחת מאפשרויות הקורס הפרונטלי
                 </p>
               </div>
@@ -804,15 +832,15 @@ const LandingPage: React.FC = () => {
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-16">
-            <h2 className="font-display font-bold text-[var(--brand-ink)] mb-4">שאלות ותשובות</h2>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[var(--brand-ink)] mb-4">שאלות ותשובות</h2>
           </div>
 
           <div className="space-y-8">
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 האם הקורס מתאים גם אם הכל "בסך הכל בסדר", אבל יש ריבים קטנים או תחושת שחיקה?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 <strong>כן — ואפילו מומלץ.</strong><br />
                 הקורס נותן כלים שמחזקים את הקשר לפני שהקשיים גדלים.
                 זו הזדמנות לחדד גבולות, להעמיק תקשורת, לקבל כלים ולהחזיר חיבור- עוד לפני שמגיעים למשברים.
@@ -820,10 +848,10 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 האם הקורס מתאים גם אם בן/בת הזוג לא משתתפים?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 <strong>בהחלט.</strong> הקורס לא מיועד לזוגות, אלא ליחידים בתוך זוגיות.<br />
                 שינוי בזוגיות מתחיל בהבנה ובמודעות של מי שאנחנו. בריפוי פנימי, בעצירת האוטמטיים.<br />
                 כשאחד משתנה — הדינמיקה כולה משתנה.<br />
@@ -832,10 +860,10 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 אין לי הרבה זמן. זה תובעני?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 <strong>ממש לא.</strong><br />
                 הקורס בנוי לאנשים עם חיים מלאים: מפגשים ממוקדים, כלים פשוטים ליישום,
                 ותהליכים שאפשר לשלב בשגרה בלי מאמץ :)
@@ -843,10 +871,10 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 אנחנו כבר בטיפול זוגי — זה עדיין רלוונטי?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 <strong>כן.</strong><br />
                 הקורס נותן בסיס רגשי עמוק שמחזק כל תהליך זוגי.
                 רבים מספרים שזה עשה סדר, שקט ובהירות.
@@ -854,20 +882,20 @@ const LandingPage: React.FC = () => {
             </div>
 
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 ומה אם רק אני רוצה שינוי?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 <strong>זה מעולה.</strong> מספיק שאחד הצצדים עושה שינוי והכל משתנה.<br />
                 כשהתקשורת משתנה — הצד השני מגיב אחרת, בלי לחץ או דרישה.
               </p>
             </div>
 
             <div className="bg-white rounded-3xl p-10 shadow-lg border-2 border-[var(--brand-border)] grain-overlay">
-              <h3 className="text-xl font-bold text-[var(--brand-ink)] mb-4">
+              <h3 className="text-2xl font-bold text-[var(--brand-ink)] mb-4">
                 איפה זה ואם יש חניה?
               </h3>
-              <p className="text-lg text-[var(--brand-ink)]/80 leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 הקורס יהיה בחלל קסום בשכונת נוגה בתל אביב. יש ליד 2 חניונים בתשלום.
               </p>
             </div>
@@ -889,7 +917,7 @@ const LandingPage: React.FC = () => {
               <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)] leading-tight">
                 להצטרף עכשיו וליצור חיבור עמוק יותר בזוגיות שלכם
               </h2>
-              <p className="text-xl text-[#5a4f4b] leading-relaxed">
+              <p className="text-xl text-[#2d2520] leading-relaxed font-medium">
                 מחכה לראותך אותך שם ♥
               </p>
               <div className="flex flex-wrap gap-4 text-base text-[var(--brand-ink)] font-medium">
@@ -907,8 +935,8 @@ const LandingPage: React.FC = () => {
                 </span>
               </div>
             </div>
-            <div className="bg-[var(--brand-surface)] rounded-3xl shadow-2xl border-2 border-[var(--brand-border)] p-8 space-y-5">
-              <div className="flex items-center gap-3 text-base text-[#5a4f4b] font-medium">
+            <div className="bg-white rounded-3xl shadow-2xl border-2 border-[var(--brand-border)] p-8 space-y-5">
+              <div className="flex items-center gap-3 text-base text-[#2d2520] font-semibold">
                 <MessageCircle className="w-6 h-6 text-[var(--brand-accent)]" />
                 אני כאן לכל שאלה לפני תחילת המסע
               </div>
@@ -927,7 +955,7 @@ const LandingPage: React.FC = () => {
                 <MessageCircle className="w-5 h-5" />
                 <span>אשמח לתאם שיחת יעוץ</span>
               </button>
-              <p className="text-sm text-[#7a6e68] text-center font-medium leading-relaxed">
+              <p className="text-base text-[#2d2520] text-center font-bold leading-relaxed">
                 הרשמה מוקדמת עד 29/11/25 · הקורס "מחוברים מחדש" במתנה לכל נרשם
               </p>
             </div>
