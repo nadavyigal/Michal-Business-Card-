@@ -13,8 +13,9 @@ import {
 
 import heroMain from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.06.01_df5423a4.jpg';
 import heroCouple from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.07.13_a8a63e21.jpg';
-import logo from '../logo.png';
-import michalPhoto from '../michal-photo.jpg';
+import logo from '../מחוברים מחדש לוגו - חדש.jpg';
+import michalPhoto from '../מחוברים מחדש השוות[2] - תמונה של מיכל .jpg';
+import heartHands from '../1מחוברים מחדש[2].png';
 
 const painPoints = [
   'נמאס לכם מהריבים שחוזרים על עצמם?',
@@ -127,19 +128,34 @@ const outcomes = [
 
 const priceBlocks = [
   {
-    label: 'מחיר רגיל',
-    price: '₪2,800',
-    note: 'כולל הקורס הפרונטלי + קורס "מחוברים מחדש" דיגיטלי במתנה (במקום 297 ₪)',
-  },
-  {
     label: 'הרשמה מוקדמת',
     price: '₪2,100',
-    note: 'חיסכון של 700 ₪ עד שבת 29/11/25',
+    originalPrice: '₪2,800',
+    savings: '₪700',
+    featured: true,
+    bonus: true,
+    note: 'כולל הקורס הפרונטלי מלא',
+    features: [
+      '7 מפגשים פרונטליים × 3 שעות',
+      'קבוצה קטנה עד 12 משתתפים',
+      'חומרי לימוד דיגיטליים',
+      'גישה לקהילה סגורה',
+    ],
   },
   {
     label: 'מסלול עם אימון אישי',
-    price: '₪1,050 תוספת',
-    note: '7 אימונים אישיים שמלווים את הקורס ומעמיקים את ההתפתחות (במקום ₪1,400)',
+    price: '₪3,150',
+    breakdown: '₪2,100 + ₪1,050',
+    originalPrice: '₪4,500',
+    savings: '₪1,347',
+    bonus: true,
+    note: 'המסלול המלא עם ליווי אישי',
+    features: [
+      'כל מה שבמסלול הבסיסי',
+      '7 אימונים אישיים (שווי ₪1,400)',
+      'ליווי צמוד לאורך הקורס',
+      'תוכנית התפתחות אישית',
+    ],
   },
 ];
 
@@ -163,10 +179,10 @@ const LandingPage: React.FC = () => {
   const primaryCta = (
     <button
       onClick={() => scrollToSection('pricing')}
-      className="group relative flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-br from-[var(--brand-accent)] via-[var(--brand-accent-deep)] to-[var(--brand-burgundy)] text-white font-bold text-base shadow-2xl shadow-[var(--brand-accent)]/40 hover:shadow-[var(--brand-accent)]/60 hover:scale-[1.08] transition-all duration-500 overflow-hidden"
+      className="group relative flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-gradient-to-br from-[var(--brand-accent)] via-[var(--brand-accent-deep)] to-[var(--brand-burgundy)] text-white font-bold text-base md:text-lg shadow-2xl shadow-[var(--brand-accent)]/40 hover:shadow-[var(--brand-accent)]/60 hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px] w-full sm:w-auto"
     >
       <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <span className="relative z-10">כן, אני רוצה לשפר את הזוגיות שלי ולהצטרף לקורס!</span>
+      <span className="relative z-10">כן, אני רוצה לשפר את הזוגיות שלי!</span>
       <ArrowLeft className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
     </button>
   );
@@ -176,6 +192,17 @@ const LandingPage: React.FC = () => {
       dir="rtl"
       className="bg-[var(--brand-soft)] text-[var(--brand-ink)] font-sans overflow-x-hidden selection:bg-[var(--brand-cream)]"
     >
+      {/* Sticky Mobile CTA Bar */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-50 p-4 bg-white/98 backdrop-blur-xl border-t border-[var(--brand-border)] shadow-2xl">
+        <button
+          onClick={() => scrollToSection('pricing')}
+          className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-gradient-to-br from-[var(--brand-accent)] via-[var(--brand-accent-deep)] to-[var(--brand-burgundy)] text-white font-bold text-base shadow-xl active:scale-95 transition-all duration-200 min-h-[48px]"
+        >
+          <span>הצטרפו לקורס עכשיו</span>
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+      </div>
+
       <nav className="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-[var(--brand-border)] shadow-lg shadow-[var(--brand-accent)]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-28">
@@ -210,12 +237,19 @@ const LandingPage: React.FC = () => {
               </button>
             </div>
 
-            <div className="hidden md:flex">{primaryCta}</div>
+            <div className="hidden md:flex items-center gap-4">
+              <button
+                onClick={() => scrollToSection('pricing')}
+                className="text-[var(--brand-accent)] font-semibold hover:text-[var(--brand-accent-deep)] transition-colors"
+              >
+                הצטרפו לקורס
+              </button>
+            </div>
 
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-[#6a5d58] hover:text-[var(--brand-accent)]"
+                className="p-3 text-[#6a5d58] hover:text-[var(--brand-accent)] min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="פתח תפריט"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,19 +331,21 @@ const LandingPage: React.FC = () => {
                   </span>
                 ))}
               </div>
-              <div className="flex flex-col sm:flex-row gap-5 animate-fade-in-up delay-400">
+              <div className="flex flex-col gap-4 animate-fade-in-up delay-400">
                 {primaryCta}
                 <button
                   onClick={() => scrollToSection('pricing')}
-                  className="group flex items-center justify-center gap-3 px-12 py-6 rounded-full bg-white text-[var(--brand-ink)] font-bold text-lg border-2 border-[var(--brand-accent)] shadow-xl hover:scale-[1.08] transition-all duration-500"
+                  className="group flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-white text-[var(--brand-ink)] font-bold text-base md:text-lg border-2 border-[var(--brand-accent)] shadow-xl hover:scale-[1.05] active:scale-95 transition-all duration-300 min-h-[44px] w-full sm:w-auto"
                 >
-                  כן! אני רוצה לשפר את הזוגיות שלי ולהצטרף לקורס + אימון אישי!
+                  <span>המסלול עם אימון אישי</span>
+                  <Star className="w-5 h-5" />
                 </button>
               </div>
               <button
-                onClick={() => scrollToSection('pricing')}
-                className="group font-semibold text-[var(--brand-accent)] underline decoration-[var(--brand-accent)]/50 hover:decoration-[var(--brand-accent)] underline-offset-4 transition-all text-base animate-fade-in-up delay-500"
+                onClick={() => scrollToSection('cta')}
+                className="group font-semibold text-[var(--brand-accent)] underline decoration-[var(--brand-accent)]/50 hover:decoration-[var(--brand-accent)] underline-offset-4 transition-all text-base animate-fade-in-up delay-500 min-h-[44px] flex items-center justify-center"
               >
+                <MessageCircle className="w-5 h-5 inline-block ml-2" />
                 אשמח לתאם שיחת יעוץ
               </button>
             </div>
@@ -363,12 +399,12 @@ const LandingPage: React.FC = () => {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-4xl mx-auto space-y-6">
-            <h2 className="font-display font-bold text-[var(--brand-ink)]">האם זה מוכר?</h2>
+            <h2 className="font-display font-bold text-[var(--brand-ink)]">האם הסיטואציה מוכרת לכם?</h2>
             <p className="text-xl md:text-2xl text-[var(--brand-accent)] font-medium">כי אתם לא לבד</p>
           </div>
 
           <div className="mt-20 grid md:grid-cols-2 gap-8">
-            {painPoints.map((item, idx) => (
+            {painPoints.map((item) => (
               <div
                 key={item}
                 className="group relative p-10 bg-white rounded-3xl shadow-lg border-2 border-[var(--brand-border)] transition-all duration-500 transform hover:-translate-y-4 hover:shadow-2xl hover:border-[var(--brand-accent)] grain-overlay"
@@ -462,7 +498,7 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {modules.map((module, idx) => (
+            {modules.map((module) => (
               <div
                 key={module.title}
                 className="group relative p-10 bg-white rounded-3xl shadow-lg border-2 border-[var(--brand-border)] transition-all duration-500 transform hover:-translate-y-4 hover:shadow-2xl hover:border-[var(--brand-accent)] grain-overlay"
@@ -563,63 +599,201 @@ const LandingPage: React.FC = () => {
             <p className="text-xl md:text-2xl text-[var(--brand-accent)] font-medium">מחירים, בונוסים והזדמנות להעמיק עם אימון אישי.</p>
           </div>
 
-          <div className="mt-20 grid md:grid-cols-3 gap-8">
-            {priceBlocks.map((block, idx) => (
+          <div className="mt-20 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {priceBlocks.map((block) => (
               <div
                 key={block.label}
-                className={`group relative p-8 rounded-3xl shadow-xl border-2 transition-all duration-500 transform hover:-translate-y-5 hover:shadow-2xl grain-overlay min-h-[280px] flex flex-col ${
-                  idx === 1
-                    ? 'bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] border-[var(--brand-accent)] scale-100 md:scale-105'
+                className={`group relative p-8 md:p-10 rounded-3xl shadow-xl border-2 transition-all duration-500 transform hover:-translate-y-3 hover:shadow-2xl grain-overlay flex flex-col ${
+                  block.featured
+                    ? 'bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] border-[var(--brand-accent)] md:scale-105'
                     : 'bg-white border-[var(--brand-border)] hover:border-[var(--brand-accent)]'
                 }`}
               >
-                {idx === 1 && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-6 py-2 bg-[var(--brand-gold)] text-white font-bold text-sm rounded-full shadow-lg">
-                    הכי פופולרי!
+                {block.featured && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 bg-[var(--brand-gold)] text-white font-bold text-sm rounded-full shadow-lg">
+                    הכי פופולרי! 🔥
                   </div>
                 )}
+
+                {block.bonus && (
+                  <div className="absolute -top-4 right-4 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-xs rounded-full shadow-lg flex items-center gap-1">
+                    <Gift className="w-4 h-4" />
+                    <span>בונוס במתנה</span>
+                  </div>
+                )}
+
                 <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
-                  idx === 1 ? 'from-white/10 to-transparent' : 'from-[var(--brand-cream)]/40 to-[var(--brand-gold)]/20'
+                  block.featured ? 'from-white/10 to-transparent' : 'from-[var(--brand-cream)]/40 to-[var(--brand-gold)]/20'
                 }`} />
 
-                <div className="relative flex items-center justify-between mb-5">
-                  <h3 className={`text-xl font-display font-bold ${idx === 1 ? 'text-white' : 'text-[var(--brand-ink)]'}`}>
-                    {block.label}
-                  </h3>
-                  <div className={`w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    idx === 1 ? 'bg-white/20' : 'bg-[var(--brand-accent)]/10'
-                  }`}>
-                    <Gift className={`w-6 h-6 ${idx === 1 ? 'text-white' : 'text-[var(--brand-accent)]'}`} />
+                <div className="relative space-y-6">
+                  <div>
+                    <h3 className={`text-2xl md:text-3xl font-display font-bold mb-2 ${block.featured ? 'text-white' : 'text-[var(--brand-ink)]'}`}>
+                      {block.label}
+                    </h3>
+                    <p className={`text-sm ${block.featured ? 'text-white/80' : 'text-[var(--brand-ink)]/60'}`}>
+                      {block.note}
+                    </p>
                   </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-end gap-3">
+                      <div className={`text-5xl md:text-6xl font-black font-display ${block.featured ? 'text-white' : 'text-[var(--brand-ink)]'}`}>
+                        {block.price}
+                      </div>
+                      {block.originalPrice && (
+                        <div className={`text-2xl font-bold line-through mb-2 ${block.featured ? 'text-white/50' : 'text-[var(--brand-ink)]/40'}`}>
+                          {block.originalPrice}
+                        </div>
+                      )}
+                    </div>
+                    {block.breakdown && (
+                      <p className={`text-sm ${block.featured ? 'text-white/70' : 'text-[var(--brand-ink)]/60'}`}>
+                        {block.breakdown}
+                      </p>
+                    )}
+                    {block.savings && (
+                      <div className={`inline-block px-4 py-2 rounded-full text-sm font-bold ${
+                        block.featured ? 'bg-white/20 text-white' : 'bg-green-100 text-green-800'
+                      }`}>
+                        💰 חוסכים {block.savings}!
+                      </div>
+                    )}
+                  </div>
+
+                  <div className={`border-t pt-6 space-y-3 ${block.featured ? 'border-white/20' : 'border-[var(--brand-border)]'}`}>
+                    {block.features.map((feature) => (
+                      <div key={feature} className="flex items-start gap-3">
+                        <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${block.featured ? 'text-white' : 'text-[var(--brand-accent)]'}`} />
+                        <span className={`text-base ${block.featured ? 'text-white/90' : 'text-[var(--brand-ink)]/80'}`}>
+                          {feature}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {block.bonus && (
+                    <div className={`p-4 rounded-2xl border-2 border-dashed ${
+                      block.featured ? 'bg-white/10 border-white/30' : 'bg-green-50 border-green-300'
+                    }`}>
+                      <div className="flex items-start gap-3">
+                        <Gift className={`w-5 h-5 flex-shrink-0 ${block.featured ? 'text-white' : 'text-green-600'}`} />
+                        <div className="flex-1">
+                          <p className={`font-bold text-sm mb-1 ${block.featured ? 'text-white' : 'text-green-800'}`}>
+                            בונוס מיוחד כלול במחיר!
+                          </p>
+                          <p className={`text-sm ${block.featured ? 'text-white/80' : 'text-green-700'}`}>
+                            קורס "מחוברים מחדש" דיגיטלי במתנה (שווי ₪297)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={() => scrollToSection('cta')}
+                    className={`w-full py-5 px-6 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl ${
+                      block.featured
+                        ? 'bg-white text-[var(--brand-accent)] hover:bg-white/95'
+                        : 'bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] text-white hover:shadow-2xl'
+                    }`}
+                  >
+                    {block.featured ? 'הצטרפו עכשיו!' : 'הצטרפו למסלול המורחב'}
+                  </button>
                 </div>
-                <div className={`text-4xl font-black font-display mb-5 ${idx === 1 ? 'text-white' : 'text-[var(--brand-ink)]'}`}>
-                  {block.price}
-                </div>
-                <p className={`text-sm leading-relaxed ${idx === 1 ? 'text-white/95' : 'text-[var(--brand-ink)]/70'}`}>
-                  {block.note}
-                </p>
               </div>
             ))}
           </div>
 
           <div className="mt-10 text-xl text-[var(--brand-accent)] text-center font-semibold bg-white/80 backdrop-blur-sm py-5 px-8 rounded-2xl border-2 border-[var(--brand-border)] shadow-lg">
-            סה״כ 1,347 ש״ח הנחה למי למסלול המורחב!! עד יום שבת ה 29/11/25
+            ⏰ הרשמה מוקדמת עד 29/11/25 - חיסכון עד ₪1,347!
           </div>
 
-          <div className="mt-14 flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="mt-14 flex flex-col gap-4 max-w-2xl mx-auto">
             {primaryCta}
             <button
               onClick={() => scrollToSection('cta')}
-              className="flex items-center justify-center gap-3 px-12 py-6 rounded-full bg-white text-[var(--brand-ink)] font-bold text-lg border-2 border-[var(--brand-accent)] shadow-xl hover:scale-[1.08] hover:shadow-2xl transition-all duration-500"
+              className="flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-white text-[var(--brand-ink)] font-bold text-base md:text-lg border-2 border-[var(--brand-accent)] shadow-xl hover:scale-[1.05] active:scale-95 transition-all duration-300 min-h-[48px] w-full"
             >
-              כן! אני רוצה לשפר את הזוגיות שלי ולהצטרף לקורס + אימון אישי!
+              <span>המסלול עם אימון אישי</span>
+              <Star className="w-5 h-5" />
             </button>
             <button
               onClick={() => scrollToSection('cta')}
-              className="flex items-center justify-center gap-3 px-12 py-6 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-lg border-2 border-[var(--brand-border)] hover:bg-white hover:scale-[1.08] transition-all duration-500 shadow-lg"
+              className="flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-base border-2 border-[var(--brand-border)] hover:bg-white hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-lg min-h-[48px] w-full"
             >
-              אשמח לתאם שיחת יעוץ
+              <MessageCircle className="w-5 h-5" />
+              <span>אשמח לתאם שיחת יעוץ</span>
             </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative py-20 sm:py-28 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--brand-cream)]/40 via-white to-[var(--brand-soft)]" />
+        <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-[var(--brand-accent)]/5 blur-3xl blob" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="relative order-2 lg:order-1">
+              <div className="absolute -inset-4 bg-gradient-to-br from-[var(--brand-accent)]/20 to-[var(--brand-gold)]/20 blur-2xl rounded-3xl opacity-60" />
+              <img
+                src={heartHands}
+                alt="מחוברים מחדש"
+                className="relative rounded-3xl shadow-2xl border-4 border-white w-full"
+              />
+            </div>
+
+            <div className="order-1 lg:order-2 space-y-8">
+              <div>
+                <p className="text-sm font-bold text-[var(--brand-accent)] uppercase tracking-[0.3em] mb-4">
+                  רוצים להתחיל בקורס דיגיטלי?
+                </p>
+                <h2 className="text-4xl md:text-5xl font-display font-bold text-[var(--brand-ink)] leading-tight mb-4">
+                  קורס "מחוברים מחדש"
+                </h2>
+                <p className="text-xl text-[var(--brand-ink)]/70 leading-relaxed">
+                  קורס דיגיטלי מקיף שיעזור לכם לחזור לקשר עם עצמכם ועם בן/בת הזוג. למדו בקצב שלכם, מהבית.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-[var(--brand-border)]">
+                <div className="flex items-baseline gap-3 mb-6">
+                  <div className="text-5xl font-black font-display text-[var(--brand-accent)]">₪297</div>
+                  <div className="text-lg text-[var(--brand-ink)]/60">תשלום חד פעמי</div>
+                </div>
+
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--brand-accent)]" />
+                    <span className="text-base text-[var(--brand-ink)]/80">גישה מיידית לכל החומרים</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--brand-accent)]" />
+                    <span className="text-base text-[var(--brand-ink)]/80">לימוד בקצב שלכם, בזמן שנוח לכם</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--brand-accent)]" />
+                    <span className="text-base text-[var(--brand-ink)]/80">כלים מעשיים לשיפור הזוגיות</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--brand-accent)]" />
+                    <span className="text-base text-[var(--brand-ink)]/80">תרגילים מודרכים ומעשיים</span>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('cta')}
+                  className="w-full py-5 px-6 rounded-full bg-gradient-to-br from-[var(--brand-accent)] to-[var(--brand-accent-deep)] text-white font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl"
+                >
+                  קנו את הקורס הדיגיטלי
+                </button>
+
+                <p className="text-sm text-[var(--brand-ink)]/60 text-center mt-4">
+                  💡 הקורס הזה כלול במתנה בכל אחת מאפשרויות הקורס הפרונטלי
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -701,7 +875,7 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      <section id="cta" className="relative py-20 sm:py-28 overflow-hidden">
+      <section id="cta" className="relative py-20 sm:py-28 pb-32 md:pb-28 overflow-hidden">
         <div className="absolute inset-0">
           <img src={heroCouple} alt="" className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#f6ddd6]/95 via-[#f9f2ef]/98 to-white/95" />
@@ -741,15 +915,17 @@ const LandingPage: React.FC = () => {
               {primaryCta}
               <button
                 onClick={() => scrollToSection('pricing')}
-                className="w-full py-5 rounded-full bg-white text-[var(--brand-ink)] font-bold text-lg border-2 border-[var(--brand-accent)]/50 shadow-lg hover:scale-105 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+                className="w-full py-5 px-6 rounded-full bg-white text-[var(--brand-ink)] font-bold text-base md:text-lg border-2 border-[var(--brand-accent)]/50 shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 min-h-[48px] flex items-center justify-center gap-2"
               >
-                כן! אני רוצה לשפר את הזוגיות שלי ולהצטרף לקורס + אימון אישי!
+                <span>המסלול עם אימון אישי</span>
+                <Star className="w-5 h-5" />
               </button>
               <button
                 onClick={() => scrollToSection('pricing')}
-              className="w-full py-5 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-lg border-2 border-[var(--brand-border)] hover:bg-white hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-md"
+                className="w-full py-5 px-6 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-base md:text-lg border-2 border-[var(--brand-border)] hover:bg-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-md min-h-[48px] flex items-center justify-center gap-2"
               >
-                אשמח לתאם שיחת יעוץ
+                <MessageCircle className="w-5 h-5" />
+                <span>אשמח לתאם שיחת יעוץ</span>
               </button>
               <p className="text-sm text-[#7a6e68] text-center font-medium leading-relaxed">
                 הרשמה מוקדמת עד 29/11/25 · הקורס "מחוברים מחדש" במתנה לכל נרשם
