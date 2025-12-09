@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React from 'react';
 import {
   ArrowLeft,
   Calendar,
@@ -14,6 +14,7 @@ import {
 import heroMain from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.06.01_df5423a4.jpg';
 import heroCouple from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.07.13_a8a63e21.jpg';
 import logo from '../מחוברים מחדש לוגו - חדש.jpg';
+import newLogo from '../לוגו לחזור הביתה.png';
 import michalPhoto from '../מחוברים מחדש השוות[2] - תמונה של מיכל .jpg';
 import heartHands from '../1מחוברים מחדש[2].png';
 
@@ -166,20 +167,17 @@ const stats = [
 ];
 
 const LandingPage: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false);
   };
 
   const primaryCta = (
     <button
       onClick={() => scrollToSection('pricing')}
-      className="group relative flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-gradient-to-br from-[var(--brand-accent)] via-[var(--brand-accent-deep)] to-[var(--brand-burgundy)] text-white font-bold text-base md:text-lg shadow-2xl shadow-[var(--brand-accent)]/40 hover:shadow-[var(--brand-accent)]/60 hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px] w-full sm:w-auto"
+      className="group relative flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-gradient-to-r from-[#d4442e] via-[#c23822] to-[#b02d18] text-white font-bold text-base md:text-lg shadow-2xl shadow-red-600/50 hover:shadow-red-600/70 hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px] w-full sm:w-auto border-2 border-red-700"
     >
       <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       <span className="relative z-10">כן, אני רוצה לשפר את הזוגיות שלי!</span>
@@ -205,10 +203,16 @@ const LandingPage: React.FC = () => {
 
       <nav className="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur-2xl border-b border-[var(--brand-border)] shadow-lg shadow-[var(--brand-accent)]/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-28">
-            <div className="flex items-center gap-5">
+          <div className="flex items-center justify-center md:justify-between h-20 md:h-28">
+            {/* Mobile: Centered Logo Only */}
+            <div className="md:hidden">
+              <img src={newLogo} alt="לחזור הביתה" className="h-14 w-auto" />
+            </div>
+
+            {/* Desktop: Full Navigation with Original Layout */}
+            <div className="hidden md:flex items-center gap-5">
               <img src={logo} alt="Shine by Michal Slonim" className="h-16 w-auto rounded-2xl shadow-xl border-2 border-[var(--brand-border)]" />
-              <div className="hidden sm:flex flex-col leading-tight">
+              <div className="flex flex-col leading-tight">
                 <span className="font-display font-bold text-[var(--brand-ink)] text-2xl">בחזרה לזוגיות שבחרתי</span>
                 <span className="text-base text-[var(--brand-accent)] font-semibold">מסע עומק של 7 מפגשים להתפתחות אישית וזוגיות</span>
               </div>
@@ -245,50 +249,11 @@ const LandingPage: React.FC = () => {
                 הצטרפו לקורס
               </button>
             </div>
-
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-3 text-[#6a5d58] hover:text-[var(--brand-accent)] min-h-[44px] min-w-[44px] flex items-center justify-center"
-                aria-label="פתח תפריט"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {isMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-white/98 border-t border-[var(--brand-border)]/80 shadow-lg">
-            <div className="px-6 py-4 space-y-3 text-right font-semibold text-[var(--brand-ink)]">
-              <button onClick={() => scrollToSection('about')} className="block w-full text-right py-2 hover:text-[var(--brand-accent)] transition-colors text-base">
-                למה הקורס
-              </button>
-              <button onClick={() => scrollToSection('fit')} className="block w-full text-right py-2 hover:text-[var(--brand-accent)] transition-colors text-base">
-                למי מתאים
-              </button>
-              <button onClick={() => scrollToSection('program')} className="block w-full text-right py-2 hover:text-[var(--brand-accent)] transition-colors text-base">
-                תוכן עניינים
-              </button>
-              <button onClick={() => scrollToSection('faq')} className="block w-full text-right py-2 hover:text-[var(--brand-accent)] transition-colors text-base">
-                שאלות ותשובות
-              </button>
-              <button onClick={() => scrollToSection('pricing')} className="block w-full text-right py-2 hover:text-[var(--brand-accent)] transition-colors text-base">
-                מחירים
-              </button>
-              <div className="pt-3">{primaryCta}</div>
-            </div>
-          </div>
-        )}
       </nav>
 
-      <header className="relative pt-36 pb-28 lg:pt-44 lg:pb-36 overflow-hidden grain-overlay">
+      <header className="relative pt-28 pb-24 md:pt-36 md:pb-28 lg:pt-44 lg:pb-36 overflow-hidden grain-overlay">
         <div className="absolute inset-0">
           <div className="absolute inset-0 w-full h-full">
             <img src={heroMain} alt="זוג מול שקיעה" className="w-full h-full object-cover scale-105 blur-md opacity-40" />
@@ -307,16 +272,10 @@ const LandingPage: React.FC = () => {
                 <Clock className="w-6 h-6 text-[var(--brand-accent)]" />
                 <span className="text-base">מסע עומק של 7 מפגשים להתפתחות אישית וזוגיות</span>
               </div>
-              <h1 className="font-display font-bold leading-[1.15] animate-fade-in-up delay-100">
-                בחזרה לזוגיות שבחרתי
-                <span className="block text-[var(--brand-accent)] text-3xl md:text-4xl lg:text-5xl font-medium mt-6 leading-snug">
-                  ליחידים בתוך זוגיות שרוצים קרבה, חיבור ומשמעות
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl font-light max-w-2xl leading-relaxed animate-fade-in-up delay-200">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold max-w-2xl leading-relaxed animate-fade-in-up delay-100 text-[var(--brand-ink)]">
                 זוגיות היא אחד הדברים הכי קסומים - וגם אחד הדברים הכי מאתגרים שנעשה בחיים.
                 אבל עם הזמן… הקסם מתחלף לעיתים בשגרה, תפעול, מרחק, ריבים, עומס — ותחושה שמשהו כבר לא עובד כמו פעם.
-              </p>
+              </h1>
               <div className="flex flex-wrap gap-4 font-semibold animate-fade-in-up delay-300">
                 {stats.map((stat, idx) => (
                   <span
@@ -346,7 +305,7 @@ const LandingPage: React.FC = () => {
                 className="group font-bold text-[var(--brand-accent)] underline decoration-[var(--brand-accent)]/50 hover:decoration-[var(--brand-accent)] underline-offset-4 transition-all text-xl animate-fade-in-up delay-500 min-h-[44px] flex items-center justify-center"
               >
                 <MessageCircle className="w-6 h-6 inline-block ml-2" />
-                אשמח לתאם שיחת יעוץ
+                אשמח לתאם שיחה לבדיקת התאמה לקורס
               </button>
             </div>
 
@@ -371,7 +330,7 @@ const LandingPage: React.FC = () => {
                     </div>
                   </div>
                   <p className="text-xl md:text-2xl font-display font-semibold text-[var(--brand-ink)] leading-snug">
-                    "לא רק להבין מה קורה – אלא לחיות אחרת. לרפא את הפחדים, הפגיעויות ופצעי הילדות ולבחור מחדש בחיבור."
+                    "זוגיות היא כמו ריקוד, מספיק שאחד משנה את הצעדים שלו והצד השני לא יכול להמשיך אותו הדבר. ככה כל הזוגיות משתנה לכן מספיק שרק אחד מבני הזוג יעשה את הצעד הראשון"
                   </p>
                   <div className="flex items-center gap-5 pt-4">
                     <img
@@ -751,7 +710,7 @@ const LandingPage: React.FC = () => {
               className="flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-base border-2 border-[var(--brand-border)] hover:bg-white hover:scale-[1.05] active:scale-95 transition-all duration-300 shadow-lg min-h-[48px] w-full"
             >
               <MessageCircle className="w-5 h-5" />
-              <span>אשמח לתאם שיחת יעוץ</span>
+              <span>אשמח לתאם שיחה לבדיקת התאמה לקורס</span>
             </button>
           </div>
         </div>
@@ -953,7 +912,7 @@ const LandingPage: React.FC = () => {
                 className="w-full py-5 px-6 rounded-full bg-white/95 text-[var(--brand-ink)] font-semibold text-base md:text-lg border-2 border-[var(--brand-border)] hover:bg-white hover:scale-105 active:scale-95 transition-all duration-300 shadow-md min-h-[48px] flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-5 h-5" />
-                <span>אשמח לתאם שיחת יעוץ</span>
+                <span>אשמח לתאם שיחה לבדיקת התאמה לקורס</span>
               </button>
               <p className="text-base text-[#2d2520] text-center font-bold leading-relaxed">
                 הרשמה מוקדמת עד 29/11/25 · הקורס "מחוברים מחדש" במתנה לכל נרשם
