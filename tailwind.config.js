@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Frank Ruhl Libre', 'Georgia', 'serif'],
-        sans: ['Heebo', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['David Libre', 'Georgia', 'serif'],
+        sans: ['Assistant', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

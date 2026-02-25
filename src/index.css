@@ -1,18 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=David+Libre:wght@400;500;700&subset=hebrew&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --brand-ink: #3d3431;
-  --brand-soft: #f8ebe7;
-  --brand-accent: #c68a7b;
-  --brand-cream: #fde9df;
+  --brand-ink: #35586f;
+  --brand-soft: #f8f0e7;
+  --brand-accent: #c68479;
+  --brand-cream: #f3e5d6;
 }
 
 body {
-  font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+  font-family: 'Assistant', system-ui, -apple-system, sans-serif;
   background-color: var(--brand-soft);
   color: var(--brand-ink);
 }
@@ -20,6 +20,5 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Frank Ruhl Libre', Georgia, serif;
+  font-family: 'David Libre', Georgia, serif;
 }
-

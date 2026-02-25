@@ -48,10 +48,11 @@ function Reveal({
 }
 
 // ── Color tokens ──────────────────────────────────────────────────────────────
-const BG    = '#faf6f3';
-const DARK  = '#3d3431';
-const ACCENT = '#c68a7b';
-const LIGHT = '#f0e8e2';
+const BG = '#f8f0e7';
+const DARK = '#35586f';
+const ACCENT = '#c68479';
+const LIGHT = '#f3e5d6';
+const DEEP = '#27465e';
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function MichalProPage() {
@@ -69,9 +70,9 @@ export default function MichalProPage() {
       style={{
         minHeight: '100vh',
         overflowX: 'hidden',
-        background: BG,
+        background: 'linear-gradient(180deg, #faf3ea 0%, #f7ebdf 42%, #f8f0e7 100%)',
         color: DARK,
-        fontFamily: "'Heebo', sans-serif",
+        fontFamily: "'Assistant', sans-serif",
       }}
     >
       {/* ── Global styles + keyframes ── */}
@@ -86,6 +87,10 @@ export default function MichalProPage() {
           0%, 100% { transform: translateY(0); }
           50%       { transform: translateY(8px); }
         }
+        @keyframes floatSoft {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50% { transform: translateY(-10px) scale(1.03); }
+        }
 
         .ha1 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
         .ha2 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
@@ -95,39 +100,40 @@ export default function MichalProPage() {
         .bob { animation: bob 2.4s ease-in-out infinite; }
 
         /* Header contact link hover */
-        .hdr-link { color: rgba(61,52,49,0.5); text-decoration: none; transition: color 0.2s; }
+        .hdr-link { color: rgba(53,88,112,0.56); text-decoration: none; transition: color 0.2s; }
         .hdr-link:hover { color: ${ACCENT}; }
 
         /* CTA buttons */
         .btn-dark {
           display: inline-flex; align-items: center; gap: 8px;
-          background: ${DARK}; color: ${BG};
-          padding: 15px 32px; border-radius: 3px;
+          background: linear-gradient(140deg, ${DEEP} 0%, ${DARK} 100%); color: ${BG};
+          padding: 15px 32px; border-radius: 999px;
           font-size: 15px; font-weight: 700; text-decoration: none;
+          box-shadow: 0 14px 30px rgba(39,70,94,0.2);
           transition: all 0.25s ease;
         }
-        .btn-dark:hover { background: #2a2320; transform: translateY(-2px); }
+        .btn-dark:hover { background: ${DARK}; transform: translateY(-2px); }
 
         .btn-ghost {
           display: inline-flex; align-items: center; gap: 8px;
-          background: rgba(61,52,49,0.1); color: ${DARK};
-          border: 1px solid rgba(61,52,49,0.22);
-          padding: 15px 32px; border-radius: 3px;
+          background: rgba(248,240,231,0.45); color: ${DEEP};
+          border: 1px solid rgba(53,88,112,0.26);
+          padding: 15px 32px; border-radius: 999px;
           font-size: 15px; font-weight: 700; text-decoration: none;
           transition: all 0.25s ease;
         }
-        .btn-ghost:hover { background: rgba(61,52,49,0.18); transform: translateY(-2px); }
+        .btn-ghost:hover { background: rgba(248,240,231,0.7); transform: translateY(-2px); }
 
         /* Service row hover */
         .svc-row {
           display: flex; align-items: baseline; gap: 28px;
           padding: 28px 16px;
-          border-bottom: 1px solid rgba(61,52,49,0.12);
+          border-bottom: 1px solid rgba(53,88,112,0.16);
           transition: background 0.22s ease, padding-inline-start 0.22s ease;
-          border-radius: 4px; cursor: default;
+          border-radius: 12px; cursor: default;
         }
         .svc-row:hover {
-          background: rgba(198,138,123,0.06);
+          background: rgba(198,132,121,0.1);
           padding-inline-start: 26px;
         }
 
@@ -141,17 +147,24 @@ export default function MichalProPage() {
         /* Hero CTA button */
         .hero-cta {
           display: inline-flex; align-items: center; gap: 10px;
-          background: ${DARK}; color: ${BG};
-          padding: 17px 40px; border-radius: 3px;
+          background: linear-gradient(140deg, ${DARK} 0%, ${DEEP} 100%); color: ${BG};
+          padding: 17px 42px; border-radius: 999px;
           font-size: 15px; font-weight: 700; text-decoration: none;
           letter-spacing: 0.04em;
-          box-shadow: 0 8px 28px rgba(61,52,49,0.18);
+          box-shadow: 0 16px 32px rgba(39,70,94,0.25);
           transition: all 0.25s ease;
         }
         .hero-cta:hover {
-          background: ${ACCENT};
+          background: linear-gradient(140deg, ${ACCENT} 0%, #b57267 100%);
           transform: translateY(-2px);
-          box-shadow: 0 14px 36px rgba(198,138,123,0.3);
+          box-shadow: 0 20px 36px rgba(198,132,121,0.34);
+        }
+        .hero-orb {
+          position: absolute;
+          border-radius: 999px;
+          filter: blur(18px);
+          pointer-events: none;
+          animation: floatSoft 8s ease-in-out infinite;
         }
 
         /* ── Responsive ── */
@@ -172,7 +185,7 @@ export default function MichalProPage() {
           .stats-strip  { flex-direction: column !important; }
           .stats-strip > div {
             border-inline-end: none !important;
-            border-bottom: 1px solid rgba(61,52,49,0.1) !important;
+            border-bottom: 1px solid rgba(53,88,112,0.1) !important;
           }
           .why-grid { grid-template-columns: 1fr !important; }
           .why-cell {
@@ -192,9 +205,9 @@ export default function MichalProPage() {
           position: 'fixed',
           top: 0, left: 0, right: 0,
           zIndex: 50,
-          background: scrolled ? 'rgba(250,246,243,0.93)' : 'transparent',
+          background: scrolled ? 'rgba(248,240,231,0.88)' : 'transparent',
           backdropFilter: scrolled ? 'blur(14px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(198,138,123,0.14)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(53,88,112,0.18)' : 'none',
           padding: scrolled ? '11px 0' : '22px 0',
           transition: 'all 0.45s cubic-bezier(0.16,1,0.3,1)',
         }}
@@ -202,10 +215,10 @@ export default function MichalProPage() {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           {/* Logo */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
-            <span style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 11, fontWeight: 900, letterSpacing: '0.32em', color: ACCENT, textTransform: 'uppercase' }}>
+            <span style={{ fontFamily: "'David Libre', serif", fontSize: 11, fontWeight: 900, letterSpacing: '0.32em', color: ACCENT, textTransform: 'uppercase' }}>
               SHINE
             </span>
-            <span style={{ fontSize: 9, fontWeight: 400, color: 'rgba(61,52,49,0.45)', letterSpacing: '0.08em' }}>
+            <span style={{ fontSize: 9, fontWeight: 400, color: 'rgba(53,88,112,0.45)', letterSpacing: '0.08em' }}>
               by Michal Slonim
             </span>
           </div>
@@ -228,9 +241,39 @@ export default function MichalProPage() {
       ══════════════════════════════════════════════════════════════ */}
       <section
         className="hero-wrap"
-        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row', overflow: 'hidden', position: 'relative' }}
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'row',
+          overflow: 'hidden',
+          position: 'relative',
+          background: 'linear-gradient(165deg, #faf2e8 0%, #f7e8d8 52%, #f3dcc6 100%)',
+        }}
       >
         {/* Text panel — RIGHT side (start in RTL) */}
+        <div
+          aria-hidden
+          className="hero-orb"
+          style={{
+            top: '14%',
+            right: '33%',
+            width: 280,
+            height: 280,
+            background: 'radial-gradient(circle, rgba(198,132,121,0.3) 0%, rgba(198,132,121,0) 70%)',
+          }}
+        />
+        <div
+          aria-hidden
+          className="hero-orb"
+          style={{
+            bottom: '10%',
+            right: '54%',
+            width: 220,
+            height: 220,
+            background: 'radial-gradient(circle, rgba(53,88,112,0.2) 0%, rgba(53,88,112,0) 72%)',
+            animationDelay: '1.5s',
+          }}
+        />
         <div
           className="hero-text-panel"
           style={{
@@ -239,7 +282,7 @@ export default function MichalProPage() {
             flexDirection: 'column',
             justifyContent: 'center',
             padding: '130px 68px 90px',
-            background: BG,
+            background: 'linear-gradient(180deg, rgba(248,240,231,0.95) 0%, rgba(248,240,231,0.82) 100%)',
             position: 'relative',
             zIndex: 1,
           }}
@@ -256,7 +299,7 @@ export default function MichalProPage() {
           <h1
             className="ha2 hero-h1"
             style={{
-              fontFamily: "'Frank Ruhl Libre', serif",
+              fontFamily: "'David Libre', serif",
               fontSize: 'clamp(76px, 10.5vw, 148px)',
               fontWeight: 900,
               lineHeight: 0.92,
@@ -276,7 +319,7 @@ export default function MichalProPage() {
             className="ha3"
             style={{
               fontSize: 'clamp(16px, 1.7vw, 21px)',
-              color: 'rgba(61,52,49,0.62)',
+              color: 'rgba(53,88,112,0.75)',
               lineHeight: 1.55,
               maxWidth: 340,
               marginBottom: 36,
@@ -284,7 +327,7 @@ export default function MichalProPage() {
             }}
           >
             מפתחת מנהלים ועובדים —{' '}
-            <em style={{ fontFamily: "'Frank Ruhl Libre', serif", fontStyle: 'normal', color: ACCENT, fontWeight: 700 }}>
+            <em style={{ fontFamily: "'David Libre', serif", fontStyle: 'normal', color: ACCENT, fontWeight: 700 }}>
               מבפנים החוצה
             </em>
           </p>
@@ -296,12 +339,12 @@ export default function MichalProPage() {
                 key={tag}
                 style={{
                   padding: '5px 15px',
-                  borderRadius: 2,
-                  border: '1px solid rgba(198,138,123,0.32)',
+                  borderRadius: 999,
+                  border: '1px solid rgba(198,132,121,0.36)',
                   color: ACCENT,
                   fontSize: 12,
-                  fontWeight: 600,
-                  background: 'rgba(198,138,123,0.07)',
+                  fontWeight: 700,
+                  background: 'rgba(198,132,121,0.14)',
                   letterSpacing: '0.02em',
                 }}
               >
@@ -329,7 +372,8 @@ export default function MichalProPage() {
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
           />
           {/* Fade toward text panel (physical right side) */}
-          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to right, transparent 45%, ${BG})` }} />
+          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to right, rgba(53,88,112,0.06) 0%, transparent 48%, ${BG} 100%)` }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(39,70,94,0.22), transparent 50%)' }} />
         </div>
 
         {/* Scroll cue */}
@@ -353,11 +397,29 @@ export default function MichalProPage() {
       {/* ══════════════════════════════════════════════════════════════
           ABOUT — dark contrast section
       ══════════════════════════════════════════════════════════════ */}
-      <section id="about" style={{ background: DARK, color: BG, padding: '0' }}>
-        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
+      <section
+        id="about"
+        style={{
+          background: 'linear-gradient(155deg, #2b4c64 0%, #3f6178 48%, #4f738c 100%)',
+          color: BG,
+          padding: '0',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(circle at 14% 24%, rgba(247,215,191,0.16) 0%, rgba(247,215,191,0) 42%), radial-gradient(circle at 85% 74%, rgba(198,132,121,0.24) 0%, rgba(198,132,121,0) 46%)',
+          }}
+        />
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px', position: 'relative' }}>
 
           <Reveal>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(198,138,123,0.7)', marginBottom: 40 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(198,132,121,0.7)', marginBottom: 40 }}>
               מי אני
             </p>
           </Reveal>
@@ -366,14 +428,14 @@ export default function MichalProPage() {
           <Reveal delay={80}>
             <blockquote
               style={{
-                fontFamily: "'Frank Ruhl Libre', serif",
+                fontFamily: "'David Libre', serif",
                 fontSize: 'clamp(24px, 3.2vw, 46px)',
                 fontWeight: 400,
                 lineHeight: 1.4,
                 color: ACCENT,
                 maxWidth: 820,
                 marginBottom: 64,
-                borderInlineStart: `3px solid rgba(198,138,123,0.45)`,
+                borderInlineStart: `3px solid rgba(198,132,121,0.45)`,
                 paddingInlineStart: 28,
               }}
             >
@@ -384,14 +446,14 @@ export default function MichalProPage() {
           {/* Two-column body */}
           <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 52, marginBottom: 64 }}>
             <Reveal delay={160}>
-              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(250,246,243,0.62)' }}>
+              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.62)' }}>
                 אני מלווה מנהלים ועובדים לפתח{' '}
                 <strong style={{ color: BG, fontWeight: 600 }}>יציבות פנימית וכלים פרקטיים</strong>
                 {' '}— להתמודד בצורה בוגרת, אחראית ואפקטיבית עם עומס, לחץ, קונפליקטים ואתגרי ניהול.
               </p>
             </Reveal>
             <Reveal delay={240}>
-              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(250,246,243,0.62)' }}>
+              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.62)' }}>
                 השילוב בין מיומנויות בין-אישיות לבין כלים פרקטיים יוצר{' '}
                 <strong style={{ color: BG, fontWeight: 600 }}>שינוי התנהגותי עמוק</strong>
                 {' '}שמחלחל לתרבות הארגונית ומחזיק לאורך זמן.
@@ -401,11 +463,11 @@ export default function MichalProPage() {
 
           {/* Outcome strip — inline, no cards */}
           <Reveal delay={320}>
-            <div style={{ borderTop: '1px solid rgba(250,246,243,0.1)', paddingTop: 40, display: 'flex', gap: 40, flexWrap: 'wrap' }}>
+            <div style={{ borderTop: '1px solid rgba(248,240,231,0.1)', paddingTop: 40, display: 'flex', gap: 40, flexWrap: 'wrap' }}>
               {['מנהלים שמובילים בביטחון', 'צוותים שעובדים בשיתוף פעולה', 'ארגון שפועל מתוך בהירות'].map((item) => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, flexShrink: 0 }} />
-                  <span style={{ fontSize: 14, color: 'rgba(250,246,243,0.55)', fontWeight: 500 }}>{item}</span>
+                  <span style={{ fontSize: 14, color: 'rgba(248,240,231,0.55)', fontWeight: 500 }}>{item}</span>
                 </div>
               ))}
             </div>
@@ -416,7 +478,7 @@ export default function MichalProPage() {
       {/* ══════════════════════════════════════════════════════════════
           EXPERIENCE — editorial stats + timeline
       ══════════════════════════════════════════════════════════════ */}
-      <section id="experience" style={{ background: BG, padding: 0 }}>
+      <section id="experience" style={{ background: 'linear-gradient(180deg, #f7efe5 0%, #faf4ec 100%)', padding: 0 }}>
         <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
           <Reveal>
@@ -425,7 +487,7 @@ export default function MichalProPage() {
             </span>
             <h2
               style={{
-                fontFamily: "'Frank Ruhl Libre', serif",
+                fontFamily: "'David Libre', serif",
                 fontSize: 'clamp(38px, 5vw, 64px)',
                 fontWeight: 900,
                 lineHeight: 1.05,
@@ -434,7 +496,7 @@ export default function MichalProPage() {
               }}
             >
               שנים של שטח.{' '}
-              <span style={{ color: 'rgba(61,52,49,0.28)' }}>לא רק תיאוריה.</span>
+              <span style={{ color: 'rgba(53,88,112,0.28)' }}>לא רק תיאוריה.</span>
             </h2>
           </Reveal>
 
@@ -444,8 +506,8 @@ export default function MichalProPage() {
               className="stats-strip"
               style={{
                 display: 'flex',
-                borderTop: '1px solid rgba(61,52,49,0.1)',
-                borderBottom: '1px solid rgba(61,52,49,0.1)',
+                borderTop: '1px solid rgba(53,88,112,0.1)',
+                borderBottom: '1px solid rgba(53,88,112,0.1)',
                 marginBottom: 72,
               }}
             >
@@ -460,14 +522,14 @@ export default function MichalProPage() {
                     flex: 1,
                     padding: '44px 32px',
                     textAlign: 'center',
-                    borderInlineEnd: i < 2 ? '1px solid rgba(61,52,49,0.1)' : 'none',
+                    borderInlineEnd: i < 2 ? '1px solid rgba(53,88,112,0.1)' : 'none',
                   }}
                 >
-                  <div style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(52px, 7vw, 92px)', fontWeight: 900, color: DARK, lineHeight: 1 }}>
+                  <div style={{ fontFamily: "'David Libre', serif", fontSize: 'clamp(52px, 7vw, 92px)', fontWeight: 900, color: DARK, lineHeight: 1 }}>
                     {s.num}
                   </div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: DARK, marginTop: 8 }}>{s.label}</div>
-                  <div style={{ fontSize: 12, color: 'rgba(61,52,49,0.45)', marginTop: 4 }}>{s.sub}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(53,88,112,0.45)', marginTop: 4 }}>{s.sub}</div>
                 </div>
               ))}
             </div>
@@ -482,11 +544,11 @@ export default function MichalProPage() {
               { badge: 'דיגיטל', text: 'יוצרת הקורס הדיגיטלי "מחוברים מחדש" – תקשורת וניהול קונפליקטים.' },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < 3 ? '1px solid rgba(61,52,49,0.07)' : 'none' }}>
+                <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < 3 ? '1px solid rgba(53,88,112,0.07)' : 'none' }}>
                   <span style={{ flexShrink: 0, fontSize: 11, fontWeight: 700, color: ACCENT, minWidth: 64, paddingTop: 3, letterSpacing: '0.04em' }}>
                     {item.badge}
                   </span>
-                  <p style={{ fontSize: 16, lineHeight: 1.75, color: 'rgba(61,52,49,0.72)' }}>{item.text}</p>
+                  <p style={{ fontSize: 16, lineHeight: 1.75, color: 'rgba(53,88,112,0.72)' }}>{item.text}</p>
                 </div>
               </Reveal>
             ))}
@@ -503,7 +565,7 @@ export default function MichalProPage() {
                 borderInlineStart: `3px solid ${ACCENT}`,
               }}
             >
-              <p style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(17px, 2vw, 22px)', fontWeight: 500, color: DARK, lineHeight: 1.62 }}>
+              <p style={{ fontFamily: "'David Libre', serif", fontSize: 'clamp(17px, 2vw, 22px)', fontWeight: 500, color: DARK, lineHeight: 1.62 }}>
                 השילוב בין ניסיון ניהולי-ארגוני עמוק לבין עבודה אימונית ורגשית מאפשר לי לייצר תהליכים שמובילים לשינוי אמיתי שנשאר.
               </p>
             </div>
@@ -514,7 +576,7 @@ export default function MichalProPage() {
       {/* ══════════════════════════════════════════════════════════════
           SERVICES — editorial numbered list (no cards)
       ══════════════════════════════════════════════════════════════ */}
-      <section id="services" style={{ background: LIGHT, padding: 0 }}>
+      <section id="services" style={{ background: 'linear-gradient(180deg, #f5e8d9 0%, #f1dfcd 100%)', padding: 0 }}>
         <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
           <Reveal>
@@ -523,7 +585,7 @@ export default function MichalProPage() {
             </span>
             <h2
               style={{
-                fontFamily: "'Frank Ruhl Libre', serif",
+                fontFamily: "'David Libre', serif",
                 fontSize: 'clamp(38px, 4.5vw, 60px)',
                 fontWeight: 900,
                 lineHeight: 1.1,
@@ -546,7 +608,7 @@ export default function MichalProPage() {
               <div className="svc-row">
                 <span
                   style={{
-                    fontFamily: "'Frank Ruhl Libre', serif",
+                    fontFamily: "'David Libre', serif",
                     fontSize: 12,
                     color: ACCENT,
                     fontWeight: 700,
@@ -558,10 +620,10 @@ export default function MichalProPage() {
                   {item.num}
                 </span>
                 <div style={{ flex: 1 }}>
-                  <h3 style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(19px, 2.2vw, 27px)', fontWeight: 700, color: DARK, marginBottom: 4 }}>
+                  <h3 style={{ fontFamily: "'David Libre', serif", fontSize: 'clamp(19px, 2.2vw, 27px)', fontWeight: 700, color: DARK, marginBottom: 4 }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: 14, color: 'rgba(61,52,49,0.55)', lineHeight: 1.6 }}>{item.desc}</p>
+                  <p style={{ fontSize: 14, color: 'rgba(53,88,112,0.55)', lineHeight: 1.6 }}>{item.desc}</p>
                 </div>
               </div>
             </Reveal>
@@ -572,7 +634,7 @@ export default function MichalProPage() {
       {/* ══════════════════════════════════════════════════════════════
           WHY ME — 2×2 bordered grid, no cards
       ══════════════════════════════════════════════════════════════ */}
-      <section id="why" style={{ background: BG, padding: 0 }}>
+      <section id="why" style={{ background: 'linear-gradient(180deg, #f9f1e8 0%, #f6e8d8 100%)', padding: 0 }}>
         <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
           <Reveal>
@@ -592,14 +654,14 @@ export default function MichalProPage() {
                 <div
                   className="why-cell"
                   style={{
-                    borderBottom: i < 2 ? '1px solid rgba(61,52,49,0.08)' : 'none',
-                    borderInlineEnd: i % 2 === 0 ? '1px solid rgba(61,52,49,0.08)' : 'none',
+                    borderBottom: i < 2 ? '1px solid rgba(53,88,112,0.08)' : 'none',
+                    borderInlineEnd: i % 2 === 0 ? '1px solid rgba(53,88,112,0.08)' : 'none',
                   }}
                 >
-                  <h3 style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 700, color: DARK, marginBottom: 14 }}>
+                  <h3 style={{ fontFamily: "'David Libre', serif", fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 700, color: DARK, marginBottom: 14 }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: 15, color: 'rgba(61,52,49,0.58)', lineHeight: 1.75 }}>{item.desc}</p>
+                  <p style={{ fontSize: 15, color: 'rgba(53,88,112,0.58)', lineHeight: 1.75 }}>{item.desc}</p>
                 </div>
               </Reveal>
             ))}
@@ -610,7 +672,15 @@ export default function MichalProPage() {
       {/* ══════════════════════════════════════════════════════════════
           CTA / FOOTER — terracotta, warm, confident
       ══════════════════════════════════════════════════════════════ */}
-      <section id="contact" style={{ background: ACCENT, padding: 0, position: 'relative', overflow: 'hidden' }}>
+      <section
+        id="contact"
+        style={{
+          background: 'linear-gradient(150deg, #efcfb4 0%, #deaa97 50%, #c68479 100%)',
+          padding: 0,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         {/* Ghost "SHINE" watermark */}
         <div
           aria-hidden
@@ -620,10 +690,10 @@ export default function MichalProPage() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontFamily: "'Frank Ruhl Libre', serif",
+            fontFamily: "'David Libre', serif",
             fontSize: 'clamp(120px, 22vw, 280px)',
             fontWeight: 900,
-            color: 'rgba(61,52,49,0.055)',
+            color: 'rgba(39,70,94,0.1)',
             userSelect: 'none',
             pointerEvents: 'none',
             lineHeight: 1,
@@ -635,12 +705,12 @@ export default function MichalProPage() {
         <div className="section-inner" style={{ maxWidth: 780, margin: '0 auto', padding: '120px 40px 80px', textAlign: 'center', position: 'relative' }}>
 
           <Reveal>
-            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(61,52,49,0.55)', marginBottom: 20 }}>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(39,70,94,0.66)', marginBottom: 20 }}>
               SHINE By Michal Slonim
             </p>
             <h2
               style={{
-                fontFamily: "'Frank Ruhl Libre', serif",
+                fontFamily: "'David Libre', serif",
                 fontSize: 'clamp(44px, 7vw, 96px)',
                 fontWeight: 900,
                 lineHeight: 0.95,
@@ -650,7 +720,7 @@ export default function MichalProPage() {
             >
               בואו נעבוד יחד
             </h2>
-            <p style={{ fontSize: 20, color: 'rgba(61,52,49,0.62)', marginBottom: 52, fontWeight: 400 }}>
+            <p style={{ fontSize: 20, color: 'rgba(39,70,94,0.72)', marginBottom: 52, fontWeight: 400 }}>
               לאפשר לעצמך לזרוח
             </p>
           </Reveal>
@@ -669,7 +739,7 @@ export default function MichalProPage() {
           </Reveal>
 
           <Reveal delay={260}>
-            <div style={{ marginTop: 80, paddingTop: 28, borderTop: '1px solid rgba(61,52,49,0.15)', color: 'rgba(61,52,49,0.42)', fontSize: 12, letterSpacing: '0.04em' }}>
+            <div style={{ marginTop: 80, paddingTop: 28, borderTop: '1px solid rgba(39,70,94,0.22)', color: 'rgba(39,70,94,0.56)', fontSize: 12, letterSpacing: '0.04em' }}>
               © 2025 מיכל סלונים · SHINE By Michal Slonim · michal@slonim.co.il
             </div>
           </Reveal>
