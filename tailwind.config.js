@@ -7,9 +7,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Frank Ruhl Libre', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['Assistant', 'Segoe UI', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Roboto', 'sans-serif'],
-        display: ['Rubik', 'Assistant', 'sans-serif'],
+        serif: ['Frank Ruhl Libre', 'Georgia', 'serif'],
+        sans: ['Heebo', 'system-ui', '-apple-system', 'sans-serif'],
       },
     },
   },

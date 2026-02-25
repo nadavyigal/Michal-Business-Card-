@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Rubik:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,7 @@
 }
 
 body {
-  font-family: 'Assistant', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Heebo', system-ui, -apple-system, sans-serif;
   background-color: var(--brand-soft);
   color: var(--brand-ink);
 }
@@ -20,6 +20,6 @@ body {
 h1,
 h2,
 h3 {
-  font-family: 'Rubik', 'Assistant', sans-serif;
+  font-family: 'Frank Ruhl Libre', Georgia, serif;
 }
 
