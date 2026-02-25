@@ -1,373 +1,309 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Users,
-  Brain,
-  Star,
-  Mic,
-  Heart,
-  Phone,
-  Mail,
-  TrendingUp,
-} from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Phone, Mail } from 'lucide-react';
 import michalPhoto from '../michal-photo.jpg';
 
-// ─── Sun Rays SVG ─────────────────────────────────────────────────────────────
-function SunRays({
-  className = '',
-  color = '#c68a7b',
-}: {
-  className?: string;
-  color?: string;
-}) {
-  const cx = 100,
-    cy = 80,
-    r = 22;
-  const innerR = 22;
-  const outerR = 66;
-  const numRays = 11;
-
-  const rays = Array.from({ length: numRays }, (_, i) => {
-    const angleDeg = (i / (numRays - 1)) * 180;
-    const rad = (angleDeg * Math.PI) / 180;
-    return {
-      x1: (cx + innerR * Math.cos(rad)).toFixed(1),
-      y1: (cy - innerR * Math.sin(rad)).toFixed(1),
-      x2: (cx + outerR * Math.cos(rad)).toFixed(1),
-      y2: (cy - outerR * Math.sin(rad)).toFixed(1),
-    };
-  });
-
-  return (
-    <svg
-      viewBox="0 0 200 100"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-hidden
-    >
-      <path
-        d={`M ${cx - r} ${cy} A ${r} ${r} 0 0 1 ${cx + r} ${cy}`}
-        stroke={color}
-        strokeWidth="1.5"
-        fill="none"
-      />
-      {rays.map((ray, i) => (
-        <line
-          key={i}
-          x1={ray.x1}
-          y1={ray.y1}
-          x2={ray.x2}
-          y2={ray.y2}
-          stroke={color}
-          strokeWidth="1.2"
-        />
-      ))}
-    </svg>
-  );
+// ── Scroll-reveal hook ────────────────────────────────────────────────────────
+function useReveal(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) { setVisible(true); obs.disconnect(); }
+      },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return { ref, visible };
 }
 
-// ─── SHINE Logo (inline SVG wordmark) ─────────────────────────────────────────
-function ShineLogo({
-  className = '',
-  light = false,
-}: {
-  className?: string;
-  light?: boolean;
-}) {
-  const ink = light ? '#fff' : '#3d3431';
-  const accent = '#c68a7b';
-  const cx = 30, cy = 28, inner = 18, outer = 26;
-  const rays = [0, 30, 60, 90, 120, 150, 180].map((deg) => {
-    const rad = ((deg + 180) * Math.PI) / 180;
-    return {
-      x1: (cx + inner * Math.cos(rad)).toFixed(1),
-      y1: (cy + inner * Math.sin(rad)).toFixed(1),
-      x2: (cx + outer * Math.cos(rad)).toFixed(1),
-      y2: (cy + outer * Math.sin(rad)).toFixed(1),
-    };
-  });
-
-  return (
-    <div className={`inline-flex flex-col items-center gap-0 ${className}`}>
-      <svg
-        viewBox="0 0 60 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-10 h-5"
-      >
-        <path d="M 6 28 A 24 24 0 0 1 54 28" stroke={accent} strokeWidth="1.8" fill="none" />
-        {rays.map((ray, i) => (
-          <line
-            key={i}
-            x1={ray.x1}
-            y1={ray.y1}
-            x2={ray.x2}
-            y2={ray.y2}
-            stroke={accent}
-            strokeWidth="1.4"
-          />
-        ))}
-      </svg>
-      <span
-        className="font-serif text-lg font-bold leading-none"
-        style={{ color: ink, letterSpacing: '0.22em' }}
-      >
-        SHINE
-      </span>
-      <span
-        className="font-sans text-[9px] font-medium uppercase mt-0.5"
-        style={{
-          color: light ? 'rgba(255,255,255,0.55)' : '#c68a7b',
-          letterSpacing: '0.12em',
-        }}
-      >
-        by Michal Slonim
-      </span>
-    </div>
-  );
-}
-
-// ─── Wave Divider ──────────────────────────────────────────────────────────────
-function WaveDivider({
-  fromColor = '#ffffff',
-  toColor = '#f8ebe7',
-  flip = false,
-}: {
-  fromColor?: string;
-  toColor?: string;
-  flip?: boolean;
-}) {
-  return (
-    <div
-      className="relative w-full overflow-hidden"
-      style={{ height: '64px', marginTop: '-1px', background: toColor }}
-    >
-      <svg
-        viewBox="0 0 1440 64"
-        preserveAspectRatio="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute inset-0 w-full h-full"
-        style={{ transform: flip ? 'scaleX(-1)' : 'none' }}
-      >
-        <path d="M0,32 C360,64 1080,0 1440,32 L1440,0 L0,0 Z" fill={fromColor} />
-      </svg>
-    </div>
-  );
-}
-
-// ─── Dot Grid (subtle background texture) ─────────────────────────────────────
-function DotGrid({ className = '' }: { className?: string }) {
-  return (
-    <div
-      className={`absolute inset-0 pointer-events-none ${className}`}
-      style={{
-        backgroundImage: 'radial-gradient(circle, #c68a7b 1px, transparent 1px)',
-        backgroundSize: '28px 28px',
-        opacity: 0.07,
-      }}
-      aria-hidden
-    />
-  );
-}
-
-// ─── Section Heading ──────────────────────────────────────────────────────────
-function SectionHeading({
+// ── Reveal wrapper ────────────────────────────────────────────────────────────
+function Reveal({
   children,
-  light = false,
-  subtitle,
+  delay = 0,
+  className = '',
 }: {
   children: React.ReactNode;
-  light?: boolean;
-  subtitle?: string;
+  delay?: number;
+  className?: string;
 }) {
+  const { ref, visible } = useReveal();
   return (
-    <div className="mb-14 text-center">
-      <SunRays
-        className="w-20 h-10 mx-auto mb-5"
-        color={light ? '#e8cfc9' : '#c68a7b'}
-      />
-      <h2
-        className={`font-serif text-4xl md:text-5xl font-bold leading-tight ${
-          light ? 'text-white' : 'text-[#3d3431]'
-        }`}
-      >
-        {children}
-      </h2>
-      {subtitle && (
-        <p className={`mt-3 text-base font-sans ${light ? 'text-white/55' : 'text-[#3d3431]/50'}`}>
-          {subtitle}
-        </p>
-      )}
-      <div className="mt-5 flex items-center justify-center gap-3">
-        <div className={`w-8 h-px ${light ? 'bg-white/20' : 'bg-[#e8cfc9]'}`} />
-        <div className={`w-2 h-2 rounded-full ${light ? 'bg-[#c68a7b]/60' : 'bg-[#c68a7b]'}`} />
-        <div className={`w-8 h-px ${light ? 'bg-white/20' : 'bg-[#e8cfc9]'}`} />
-      </div>
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(26px)',
+        transition: `opacity 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}ms, transform 0.75s cubic-bezier(0.16,1,0.3,1) ${delay}ms`,
+      }}
+    >
+      {children}
     </div>
   );
 }
 
-// ─── Service Card ─────────────────────────────────────────────────────────────
-function ServiceCard({
-  icon: Icon,
-  title,
-  desc,
-}: {
-  icon: React.ElementType;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <div className="group relative bg-white border border-[#e8cfc9] rounded-2xl p-6 hover:shadow-xl hover:shadow-[#c68a7b]/8 hover:-translate-y-1.5 transition-all duration-300 overflow-hidden">
-      {/* Top accent gradient stripe */}
-      <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-l from-transparent via-[#c68a7b]/60 to-transparent" />
-      {/* Icon container */}
-      <div className="w-12 h-12 rounded-2xl bg-[#f8ebe7] flex items-center justify-center mb-5 group-hover:bg-[#c68a7b] transition-colors duration-300">
-        <Icon size={22} className="text-[#c68a7b] group-hover:text-white transition-colors duration-300" />
-      </div>
-      <h3 className="font-serif text-lg font-bold text-[#3d3431] mb-2 leading-snug">
-        {title}
-      </h3>
-      <p className="text-sm text-[#3d3431]/55 leading-relaxed font-sans">{desc}</p>
-    </div>
-  );
-}
+// ── Color tokens ──────────────────────────────────────────────────────────────
+const BG    = '#faf6f3';
+const DARK  = '#3d3431';
+const ACCENT = '#c68a7b';
+const LIGHT = '#f0e8e2';
 
-// ─── Why-Me Card ──────────────────────────────────────────────────────────────
-function WhyCard({
-  num,
-  title,
-  desc,
-}: {
-  num: string;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <div className="group relative bg-white rounded-2xl p-7 shadow-sm border border-[#e8cfc9] hover:border-[#c68a7b]/50 hover:shadow-lg transition-all duration-300 overflow-hidden">
-      {/* Ghost number positioned absolutely behind content */}
-      <div
-        className="font-serif font-bold text-[#c68a7b]/10 group-hover:text-[#c68a7b]/18 transition-colors leading-none select-none absolute -top-3 -end-2 pointer-events-none"
-        style={{ fontSize: '88px' }}
-      >
-        {num}
-      </div>
-      <div className="relative">
-        {/* Small numbered badge */}
-        <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#f8ebe7] text-[#c68a7b] font-bold text-xs mb-4 font-sans">
-          {num}
-        </div>
-        <h3 className="font-serif text-xl font-bold text-[#3d3431] mb-2 leading-tight">
-          {title}
-        </h3>
-        <p className="text-[#3d3431]/60 leading-relaxed text-sm font-sans">{desc}</p>
-      </div>
-    </div>
-  );
-}
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
+// ── Page ──────────────────────────────────────────────────────────────────────
 export default function MichalProPage() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#faf6f3] text-[#3d3431] overflow-x-hidden">
+    <div
+      dir="rtl"
+      style={{
+        minHeight: '100vh',
+        overflowX: 'hidden',
+        background: BG,
+        color: DARK,
+        fontFamily: "'Heebo', sans-serif",
+      }}
+    >
+      {/* ── Global styles + keyframes ── */}
+      <style>{`
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(22px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bob {
+          0%, 100% { transform: translateY(0); }
+          50%       { transform: translateY(8px); }
+        }
+
+        .ha1 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.1s both; }
+        .ha2 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.28s both; }
+        .ha3 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.44s both; }
+        .ha4 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.58s both; }
+        .ha5 { animation: fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.72s both; }
+        .bob { animation: bob 2.4s ease-in-out infinite; }
+
+        /* Header contact link hover */
+        .hdr-link { color: rgba(61,52,49,0.5); text-decoration: none; transition: color 0.2s; }
+        .hdr-link:hover { color: ${ACCENT}; }
+
+        /* CTA buttons */
+        .btn-dark {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: ${DARK}; color: ${BG};
+          padding: 15px 32px; border-radius: 3px;
+          font-size: 15px; font-weight: 700; text-decoration: none;
+          transition: all 0.25s ease;
+        }
+        .btn-dark:hover { background: #2a2320; transform: translateY(-2px); }
+
+        .btn-ghost {
+          display: inline-flex; align-items: center; gap: 8px;
+          background: rgba(61,52,49,0.1); color: ${DARK};
+          border: 1px solid rgba(61,52,49,0.22);
+          padding: 15px 32px; border-radius: 3px;
+          font-size: 15px; font-weight: 700; text-decoration: none;
+          transition: all 0.25s ease;
+        }
+        .btn-ghost:hover { background: rgba(61,52,49,0.18); transform: translateY(-2px); }
+
+        /* Service row hover */
+        .svc-row {
+          display: flex; align-items: baseline; gap: 28px;
+          padding: 28px 16px;
+          border-bottom: 1px solid rgba(61,52,49,0.12);
+          transition: background 0.22s ease, padding-inline-start 0.22s ease;
+          border-radius: 4px; cursor: default;
+        }
+        .svc-row:hover {
+          background: rgba(198,138,123,0.06);
+          padding-inline-start: 26px;
+        }
+
+        /* Why grid cell hover */
+        .why-cell {
+          padding: 52px 44px;
+          transition: background 0.25s ease;
+        }
+        .why-cell:hover { background: ${LIGHT}; }
+
+        /* Hero CTA button */
+        .hero-cta {
+          display: inline-flex; align-items: center; gap: 10px;
+          background: ${DARK}; color: ${BG};
+          padding: 17px 40px; border-radius: 3px;
+          font-size: 15px; font-weight: 700; text-decoration: none;
+          letter-spacing: 0.04em;
+          box-shadow: 0 8px 28px rgba(61,52,49,0.18);
+          transition: all 0.25s ease;
+        }
+        .hero-cta:hover {
+          background: ${ACCENT};
+          transform: translateY(-2px);
+          box-shadow: 0 14px 36px rgba(198,138,123,0.3);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+          .hero-wrap { flex-direction: column !important; }
+          .hero-photo-panel {
+            width: 100% !important;
+            height: 52vw !important;
+            min-height: 260px;
+            order: -1;
+          }
+          .hero-photo-panel img { object-position: center 20%; }
+          .hero-text-panel {
+            padding: 48px 24px 64px !important;
+          }
+          .hero-h1 { font-size: clamp(64px, 20vw, 100px) !important; }
+          .about-grid   { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .stats-strip  { flex-direction: column !important; }
+          .stats-strip > div {
+            border-inline-end: none !important;
+            border-bottom: 1px solid rgba(61,52,49,0.1) !important;
+          }
+          .why-grid { grid-template-columns: 1fr !important; }
+          .why-cell {
+            border-inline-end: none !important;
+            padding: 36px 24px !important;
+          }
+          .section-inner { padding: 72px 24px !important; }
+          .email-link { display: none !important; }
+        }
+      `}</style>
 
       {/* ══════════════════════════════════════════════════════════════
-          HEADER — fixed, transparent → white on scroll
+          HEADER
       ══════════════════════════════════════════════════════════════ */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-white/95 backdrop-blur-sm shadow-sm py-3'
-            : 'bg-[#faf6f3]/80 backdrop-blur-sm py-5'
-        }`}
+        style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0,
+          zIndex: 50,
+          background: scrolled ? 'rgba(250,246,243,0.93)' : 'transparent',
+          backdropFilter: scrolled ? 'blur(14px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(198,138,123,0.14)' : 'none',
+          padding: scrolled ? '11px 0' : '22px 0',
+          transition: 'all 0.45s cubic-bezier(0.16,1,0.3,1)',
+        }}
       >
-        <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-          {/* Contact links — start side */}
-          <div className="flex items-center gap-5 text-sm text-[#3d3431]/60">
-            <a
-              href="tel:052-6665061"
-              className="flex items-center gap-1.5 hover:text-[#c68a7b] transition-colors font-medium font-sans"
-            >
-              <Phone size={13} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          {/* Logo */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 2 }}>
+            <span style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 11, fontWeight: 900, letterSpacing: '0.32em', color: ACCENT, textTransform: 'uppercase' }}>
+              SHINE
+            </span>
+            <span style={{ fontSize: 9, fontWeight: 400, color: 'rgba(61,52,49,0.45)', letterSpacing: '0.08em' }}>
+              by Michal Slonim
+            </span>
+          </div>
+          {/* Contact */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+            <a href="tel:052-6665061" className="hdr-link" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13, fontWeight: 500 }}>
+              <Phone size={12} strokeWidth={2.2} />
               052-6665061
             </a>
-            <a
-              href="mailto:michal@slonim.co.il"
-              className="hidden sm:flex items-center gap-1.5 hover:text-[#c68a7b] transition-colors font-sans"
-            >
-              <Mail size={13} />
+            <a href="mailto:michal@slonim.co.il" className="hdr-link email-link" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13 }}>
+              <Mail size={12} strokeWidth={2.2} />
               michal@slonim.co.il
             </a>
           </div>
-
-          {/* SHINE Logo — end side */}
-          <ShineLogo />
         </div>
       </header>
 
       {/* ══════════════════════════════════════════════════════════════
-          HERO — full-height split panel
+          HERO — full-height editorial split
       ══════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col md:flex-row overflow-hidden">
-
-        {/* Photo panel — end side (left in RTL), full height */}
-        <div className="relative md:w-[45%] h-72 md:h-auto order-first md:order-last flex-shrink-0">
-          <img
-            src={michalPhoto}
-            alt="מיכל סלונים"
-            className="w-full h-full object-cover object-center"
-          />
-          {/* Gradient bleed toward the text panel */}
-          <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-l from-transparent via-transparent to-[#faf6f3]/85" />
-          {/* Dot grid texture overlay */}
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle, #3d3431 1px, transparent 1px)',
-              backgroundSize: '24px 24px',
-            }}
-            aria-hidden
-          />
-        </div>
-
-        {/* Text panel — start side */}
-        <div className="relative flex-1 flex flex-col justify-center px-8 md:px-14 lg:px-20 pt-28 md:pt-20 pb-16 bg-[#faf6f3]">
-          {/* Decorative background blob */}
-          <div className="absolute top-0 end-0 w-80 h-80 rounded-full bg-[#e8cfc9]/35 blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" aria-hidden />
-
-          {/* Sun motif */}
-          <SunRays className="w-24 h-12 mb-5" />
-
+      <section
+        className="hero-wrap"
+        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'row', overflow: 'hidden', position: 'relative' }}
+      >
+        {/* Text panel — RIGHT side (start in RTL) */}
+        <div
+          className="hero-text-panel"
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: '130px 68px 90px',
+            background: BG,
+            position: 'relative',
+            zIndex: 1,
+          }}
+        >
           {/* Eyebrow */}
-          <span className="inline-block text-[#c68a7b] text-xs font-bold tracking-[0.2em] uppercase mb-4 font-sans">
+          <div
+            className="ha1"
+            style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 28 }}
+          >
             SHINE By Michal Slonim
-          </span>
+          </div>
 
-          {/* H1 — dramatic two-line display */}
-          <h1 className="font-serif text-6xl sm:text-7xl lg:text-8xl font-bold leading-[1.03] mb-5 text-[#3d3431]">
+          {/* Name — dramatic display */}
+          <h1
+            className="ha2 hero-h1"
+            style={{
+              fontFamily: "'Frank Ruhl Libre', serif",
+              fontSize: 'clamp(76px, 10.5vw, 148px)',
+              fontWeight: 900,
+              lineHeight: 0.92,
+              color: DARK,
+              marginBottom: 22,
+              letterSpacing: '-0.025em',
+            }}
+          >
             מיכל<br />סלונים
           </h1>
 
+          {/* Accent line */}
+          <div className="ha3" style={{ width: 44, height: 2, background: ACCENT, marginBottom: 20 }} />
+
           {/* Tagline */}
-          <p className="text-xl sm:text-2xl text-[#3d3431]/70 font-medium mb-8 leading-snug max-w-sm font-sans">
-            מפתחת מנהלים ועובדים –{' '}
-            <em className="font-serif not-italic text-[#c68a7b]">מבפנים החוצה</em>
+          <p
+            className="ha3"
+            style={{
+              fontSize: 'clamp(16px, 1.7vw, 21px)',
+              color: 'rgba(61,52,49,0.62)',
+              lineHeight: 1.55,
+              maxWidth: 340,
+              marginBottom: 36,
+              fontWeight: 400,
+            }}
+          >
+            מפתחת מנהלים ועובדים —{' '}
+            <em style={{ fontFamily: "'Frank Ruhl Libre', serif", fontStyle: 'normal', color: ACCENT, fontWeight: 700 }}>
+              מבפנים החוצה
+            </em>
           </p>
 
-          {/* Specialty pills */}
-          <div className="flex flex-wrap gap-2 mb-10">
+          {/* Specialty tags */}
+          <div className="ha4" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 44 }}>
             {['פיתוח מנהלים', 'פיתוח עובדים', 'תרבות ארגונית'].map((tag) => (
               <span
                 key={tag}
-                className="px-4 py-1.5 rounded-full bg-[#f8ebe7] border border-[#e8cfc9] text-[#c68a7b] text-sm font-semibold font-sans"
+                style={{
+                  padding: '5px 15px',
+                  borderRadius: 2,
+                  border: '1px solid rgba(198,138,123,0.32)',
+                  color: ACCENT,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  background: 'rgba(198,138,123,0.07)',
+                  letterSpacing: '0.02em',
+                }}
               >
                 {tag}
               </span>
@@ -375,295 +311,368 @@ export default function MichalProPage() {
           </div>
 
           {/* CTA */}
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 bg-[#c68a7b] text-white px-9 py-4 rounded-full text-base font-bold hover:bg-[#a8705f] transition-all duration-200 shadow-xl shadow-[#c68a7b]/25 hover:shadow-2xl hover:-translate-y-0.5 self-start font-sans"
-          >
-            בואו נדבר
-          </a>
+          <div className="ha5">
+            <a href="#contact" className="hero-cta">
+              בואו נדבר
+            </a>
+          </div>
+        </div>
+
+        {/* Photo panel — LEFT side (end in RTL) */}
+        <div
+          className="hero-photo-panel"
+          style={{ width: '42%', position: 'relative', overflow: 'hidden', flexShrink: 0 }}
+        >
+          <img
+            src={michalPhoto}
+            alt="מיכל סלונים"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }}
+          />
+          {/* Fade toward text panel (physical right side) */}
+          <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to right, transparent 45%, ${BG})` }} />
+        </div>
+
+        {/* Scroll cue */}
+        <div
+          className="bob"
+          style={{
+            position: 'absolute',
+            bottom: 28,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            opacity: 0.25,
+            fontSize: 20,
+            color: DARK,
+            animation: 'fadeUp 0.85s cubic-bezier(0.16,1,0.3,1) 1.1s both, bob 2.4s ease-in-out 2s infinite',
+          }}
+        >
+          ↓
         </div>
       </section>
 
-      {/* Wave: Hero → About */}
-      <WaveDivider fromColor="#faf6f3" toColor="#ffffff" />
-
       {/* ══════════════════════════════════════════════════════════════
-          ABOUT — מי אני
+          ABOUT — dark contrast section
       ══════════════════════════════════════════════════════════════ */}
-      <section id="about" className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <SectionHeading>מי אני</SectionHeading>
+      <section id="about" style={{ background: DARK, color: BG, padding: '0' }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
-          <div className="space-y-6 text-[#3d3431]/75 text-lg leading-[1.85]">
-            <p>
-              אני מלווה מנהלים ועובדים לפתח{' '}
-              <strong className="text-[#3d3431] font-semibold">
-                יציבות פנימית וכלים פרקטיים
-              </strong>
-              , כדי להתמודד בצורה בוגרת, אחראית ואפקטיבית עם עומס, לחץ,
-              קונפליקטים ואתגרי ניהול.
+          <Reveal>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(198,138,123,0.7)', marginBottom: 40 }}>
+              מי אני
             </p>
+          </Reveal>
 
-            {/* Pull quote — upgraded */}
-            <div className="my-8 relative">
-              <div
-                className="absolute -top-4 end-2 font-serif leading-none text-[#c68a7b]/12 select-none pointer-events-none"
-                style={{ fontSize: '96px' }}
-                aria-hidden
-              >
-                "
-              </div>
-              <blockquote className="border-s-[3px] border-[#c68a7b] ps-7 py-4 pe-8 bg-gradient-to-l from-[#faf6f3] to-[#fde9df]/50 rounded-e-2xl">
-                <p className="font-serif text-2xl text-[#3d3431] font-medium leading-relaxed">
-                  אני לא מלמדת רק מיומנויות טכניות.
-                </p>
-                <p className="mt-2 text-sm text-[#3d3431]/50 font-sans tracking-wide">
-                  — מיכל סלונים
-                </p>
-              </blockquote>
+          {/* Large pull quote — hero of this section */}
+          <Reveal delay={80}>
+            <blockquote
+              style={{
+                fontFamily: "'Frank Ruhl Libre', serif",
+                fontSize: 'clamp(24px, 3.2vw, 46px)',
+                fontWeight: 400,
+                lineHeight: 1.4,
+                color: ACCENT,
+                maxWidth: 820,
+                marginBottom: 64,
+                borderInlineStart: `3px solid rgba(198,138,123,0.45)`,
+                paddingInlineStart: 28,
+              }}
+            >
+              "אני לא מלמדת רק מיומנויות טכניות — אני עוזרת לאנשים לזהות מה עוצר אותם ולפעול מתוך בהירות."
+            </blockquote>
+          </Reveal>
+
+          {/* Two-column body */}
+          <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 52, marginBottom: 64 }}>
+            <Reveal delay={160}>
+              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(250,246,243,0.62)' }}>
+                אני מלווה מנהלים ועובדים לפתח{' '}
+                <strong style={{ color: BG, fontWeight: 600 }}>יציבות פנימית וכלים פרקטיים</strong>
+                {' '}— להתמודד בצורה בוגרת, אחראית ואפקטיבית עם עומס, לחץ, קונפליקטים ואתגרי ניהול.
+              </p>
+            </Reveal>
+            <Reveal delay={240}>
+              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(250,246,243,0.62)' }}>
+                השילוב בין מיומנויות בין-אישיות לבין כלים פרקטיים יוצר{' '}
+                <strong style={{ color: BG, fontWeight: 600 }}>שינוי התנהגותי עמוק</strong>
+                {' '}שמחלחל לתרבות הארגונית ומחזיק לאורך זמן.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Outcome strip — inline, no cards */}
+          <Reveal delay={320}>
+            <div style={{ borderTop: '1px solid rgba(250,246,243,0.1)', paddingTop: 40, display: 'flex', gap: 40, flexWrap: 'wrap' }}>
+              {['מנהלים שמובילים בביטחון', 'צוותים שעובדים בשיתוף פעולה', 'ארגון שפועל מתוך בהירות'].map((item) => (
+                <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: 'rgba(250,246,243,0.55)', fontWeight: 500 }}>{item}</span>
+                </div>
+              ))}
             </div>
-
-            <p>
-              אני עוזרת למנהלים להבין מה קורה להם ברגעי לחץ, לזהות היכן הם
-              מופעלים, לווסת את עצמם ולפעול מתוך{' '}
-              <strong className="text-[#3d3431]">בהירות ולא מתוך סטרס</strong>.
-            </p>
-
-            <p>
-              העבודה שלי מחברת בין מיומנויות ניהוליות לבין עומק בין-אישי ורגשי
-              – תחום שלרוב אינו מקבל מענה מספק בהכשרות מקצועיות.
-            </p>
-
-            <p>
-              השילוב בין מיומנויות בין-אישיות לבין כלים פרקטיים יוצר{' '}
-              <strong className="text-[#3d3431]">
-                שינוי התנהגותי עמוק
-              </strong>{' '}
-              שמחלחל לתרבות הארגונית ומחזיק לאורך זמן.
-            </p>
-          </div>
-
-          {/* Outcome trio — with ghost number watermarks */}
-          <div className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-5">
-            {[
-              { label: 'מנהלים שמובילים בביטחון', icon: Star, num: '01' },
-              { label: 'צוותים שעובדים בשיתוף פעולה', icon: Users, num: '02' },
-              { label: 'ארגון שפועל מתוך בהירות ומוטיבציה', icon: TrendingUp, num: '03' },
-            ].map(({ label, icon: Icon, num }) => (
-              <div
-                key={label}
-                className="relative bg-[#faf6f3] border border-[#e8cfc9] rounded-2xl px-5 py-7 text-center overflow-hidden group hover:border-[#c68a7b]/40 hover:shadow-md transition-all duration-300"
-              >
-                <div className="absolute top-2 end-3 font-serif font-bold text-[#c68a7b]/8 select-none leading-none" style={{ fontSize: '48px' }}>
-                  {num}
-                </div>
-                <Icon size={24} className="text-[#c68a7b] mx-auto mb-3" />
-                <p className="text-sm font-semibold text-[#3d3431] leading-snug font-sans">{label}</p>
-              </div>
-            ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Wave: About → Experience */}
-      <WaveDivider fromColor="#ffffff" toColor="#f8ebe7" />
-
       {/* ══════════════════════════════════════════════════════════════
-          EXPERIENCE — ניסיון מקצועי
+          EXPERIENCE — editorial stats + timeline
       ══════════════════════════════════════════════════════════════ */}
-      <section id="experience" className="py-20 bg-[#f8ebe7] relative overflow-hidden">
-        <DotGrid />
-        <div className="relative max-w-5xl mx-auto px-6">
-          <SectionHeading>ניסיון מקצועי</SectionHeading>
+      <section id="experience" style={{ background: BG, padding: 0 }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
-          {/* 4-column stat grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-14">
-            {[
-              { num: '12+', label: 'שנות ניהול', sub: 'סוכנות ביטוח גדולה' },
-              { num: '12+', label: 'שנות קואצ\'ינג', sub: 'ליווי אישי וזוגי' },
-              { num: '20+', label: 'עובדים', sub: 'תחת ניהול ישיר' },
-              { num: '∞', label: 'שינוי', sub: 'שנשאר לאורך זמן' },
-            ].map((s) => (
-              <div
-                key={s.sub}
-                className="bg-white rounded-2xl p-5 text-center shadow-sm border border-[#e8cfc9]"
-              >
-                <div className="font-serif text-5xl sm:text-6xl font-bold text-[#c68a7b] leading-none">
-                  {s.num}
+          <Reveal>
+            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
+              ניסיון מקצועי
+            </span>
+            <h2
+              style={{
+                fontFamily: "'Frank Ruhl Libre', serif",
+                fontSize: 'clamp(38px, 5vw, 64px)',
+                fontWeight: 900,
+                lineHeight: 1.05,
+                color: DARK,
+                marginBottom: 72,
+              }}
+            >
+              שנים של שטח.{' '}
+              <span style={{ color: 'rgba(61,52,49,0.28)' }}>לא רק תיאוריה.</span>
+            </h2>
+          </Reveal>
+
+          {/* Stats — horizontal editorial strip */}
+          <Reveal delay={100}>
+            <div
+              className="stats-strip"
+              style={{
+                display: 'flex',
+                borderTop: '1px solid rgba(61,52,49,0.1)',
+                borderBottom: '1px solid rgba(61,52,49,0.1)',
+                marginBottom: 72,
+              }}
+            >
+              {[
+                { num: '12+', label: 'שנות ניהול', sub: 'סוכנות ביטוח גדולה' },
+                { num: '12+', label: "שנות קואצ'ינג", sub: 'ליווי אישי וזוגי' },
+                { num: '20+', label: 'עובדים', sub: 'תחת ניהול ישיר' },
+              ].map((s, i) => (
+                <div
+                  key={s.sub}
+                  style={{
+                    flex: 1,
+                    padding: '44px 32px',
+                    textAlign: 'center',
+                    borderInlineEnd: i < 2 ? '1px solid rgba(61,52,49,0.1)' : 'none',
+                  }}
+                >
+                  <div style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(52px, 7vw, 92px)', fontWeight: 900, color: DARK, lineHeight: 1 }}>
+                    {s.num}
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: DARK, marginTop: 8 }}>{s.label}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(61,52,49,0.45)', marginTop: 4 }}>{s.sub}</div>
                 </div>
-                <div className="font-bold text-[#3d3431] text-sm mt-1.5 font-sans">{s.label}</div>
-                <div className="text-xs text-[#3d3431]/45 mt-0.5 font-sans">{s.sub}</div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Reveal>
 
-          {/* Styled timeline bullets */}
-          <div className="space-y-4 max-w-3xl mx-auto">
+          {/* Timeline */}
+          <div style={{ maxWidth: 680 }}>
             {[
-              { badge: '12 שנים', text: '12 שנים כסוכנת ביטוח ומנהלת סוכנות ביטוח גדולה (כ-20 עובדים ואלפי לקוחות) – ניהול עובדים, אסטרטגיה, פיתוח תהליכים ועבודה מול מנכ"לים ובכירים במשק' },
-              { badge: 'מיזוג', text: 'ליווי מכירה, מיזוג והטמעת תהליכים לאחר מכירת הסוכנות' },
-              { badge: '12 שנים', text: '12 שנים מאמנת אישית וזוגית (שיטת סאטיה)' },
-              { badge: 'קורס', text: 'יוצרת הקורס הדיגיטלי "מחוברים מחדש" – תקשורת וניהול קונפליקטים' },
+              { badge: '12 שנים', text: 'כסוכנת ביטוח ומנהלת סוכנות ביטוח גדולה – ניהול כ-20 עובדים ואלפי לקוחות, אסטרטגיה, פיתוח תהליכים ועבודה מול מנכ"לים ובכירים במשק.' },
+              { badge: 'מיזוג', text: 'ליווי מכירה, מיזוג והטמעת תהליכים לאחר מכירת הסוכנות.' },
+              { badge: '12 שנים', text: 'מאמנת אישית וזוגית בשיטת סאטיה.' },
+              { badge: 'דיגיטל', text: 'יוצרת הקורס הדיגיטלי "מחוברים מחדש" – תקשורת וניהול קונפליקטים.' },
             ].map((item, i) => (
-              <div
-                key={i}
-                className="flex items-start gap-5 bg-white rounded-2xl px-6 py-5 shadow-sm border border-[#e8cfc9]/70 hover:border-[#c68a7b]/30 transition-colors"
-              >
-                <div className="flex-shrink-0 bg-[#f8ebe7] border border-[#e8cfc9] rounded-xl px-3 py-2 text-center min-w-[56px]">
-                  <span className="font-serif text-sm font-bold text-[#c68a7b] leading-tight block">
+              <Reveal key={i} delay={i * 80}>
+                <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < 3 ? '1px solid rgba(61,52,49,0.07)' : 'none' }}>
+                  <span style={{ flexShrink: 0, fontSize: 11, fontWeight: 700, color: ACCENT, minWidth: 64, paddingTop: 3, letterSpacing: '0.04em' }}>
                     {item.badge}
                   </span>
+                  <p style={{ fontSize: 16, lineHeight: 1.75, color: 'rgba(61,52,49,0.72)' }}>{item.text}</p>
                 </div>
-                <p className="text-[#3d3431]/75 leading-relaxed text-base font-sans pt-1">
-                  {item.text}
-                </p>
-              </div>
+              </Reveal>
             ))}
           </div>
 
           {/* Summary callout */}
-          <div className="mt-10 max-w-3xl mx-auto">
-            <div className="bg-white rounded-2xl p-7 border border-[#c68a7b]/25 text-center shadow-sm">
-              <p className="font-serif text-xl text-[#3d3431] font-medium leading-relaxed">
-                השילוב בין ניסיון ניהולי-ארגוני עמוק לבין עבודה אימונית ורגשית
-                מאפשר לי לייצר תהליכים שמובילים לשינוי אמיתי שנשאר.
+          <Reveal delay={200}>
+            <div
+              style={{
+                marginTop: 56,
+                padding: '28px 36px',
+                background: LIGHT,
+                borderRadius: 4,
+                borderInlineStart: `3px solid ${ACCENT}`,
+              }}
+            >
+              <p style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(17px, 2vw, 22px)', fontWeight: 500, color: DARK, lineHeight: 1.62 }}>
+                השילוב בין ניסיון ניהולי-ארגוני עמוק לבין עבודה אימונית ורגשית מאפשר לי לייצר תהליכים שמובילים לשינוי אמיתי שנשאר.
               </p>
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Wave: Experience → Services */}
-      <WaveDivider fromColor="#f8ebe7" toColor="#ffffff" />
-
       {/* ══════════════════════════════════════════════════════════════
-          SERVICES — תחומי פעילות
+          SERVICES — editorial numbered list (no cards)
       ══════════════════════════════════════════════════════════════ */}
-      <section id="services" className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <SectionHeading>תחומי פעילות</SectionHeading>
+      <section id="services" style={{ background: LIGHT, padding: 0 }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            <ServiceCard
-              icon={Users}
-              title="סדנאות וליווי למנהלים ולעובדים"
-              desc="התמודדות עם לחץ ועומס, ניהול כעסים, חיזוק מוטיבציה והנעת עובדים"
-            />
-            <ServiceCard
-              icon={Brain}
-              title="חיבור בין ממשקים וצוותים"
-              desc="שיפור תקשורת ושיתופי פעולה פנים-ארגוניים"
-            />
-            <ServiceCard
-              icon={Star}
-              title="שירות מצוין מבפנים החוצה"
-              desc="פיתוח תודעת שירות דרך ניהול מודע של תגובות ודפוסים"
-            />
-            <ServiceCard
-              icon={Heart}
-              title="ליווי אישי למנהלים"
-              desc="תהליך עומק אישי לפיתוח מנהיגות מתוך יציבות ובהירות"
-            />
-            <ServiceCard
-              icon={Mic}
-              title="הרצאות השראה"
-              desc="חיבור בין מנהיגות, ניהול ודינמיקות אנושיות בארגון"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Wave: Services → Why Me */}
-      <WaveDivider fromColor="#ffffff" toColor="#f8ebe7" />
-
-      {/* ══════════════════════════════════════════════════════════════
-          WHY ME — למה לבחור בי
-      ══════════════════════════════════════════════════════════════ */}
-      <section id="why" className="py-20 bg-[#f8ebe7]">
-        <div className="max-w-4xl mx-auto px-6">
-          <SectionHeading>למה לבחור בי</SectionHeading>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <WhyCard
-              num="01"
-              title="ניסיון רחב ומשולב"
-              desc="ניסיון ניהולי, ארגוני ואימוני רחב – מהשטח ומהלב"
-            />
-            <WhyCard
-              num="02"
-              title="שילוב ייחודי"
-              desc="עומק רגשי יחד עם פרקטיקה ניהולית – גישה שנדירה בתחום"
-            />
-            <WhyCard
-              num="03"
-              title="ממוקדת יישום"
-              desc="גישה ממוקדת בהטמעה בשטח ולא רק בלמידה תיאורטית"
-            />
-            <WhyCard
-              num="04"
-              title="ראייה מערכתית"
-              desc="ראייה מערכתית לצד פיתוח אישי – גם וגם"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Wave: Why Me → Footer */}
-      <WaveDivider fromColor="#f8ebe7" toColor="#3d3431" />
-
-      {/* ══════════════════════════════════════════════════════════════
-          CTA / FOOTER
-      ══════════════════════════════════════════════════════════════ */}
-      <section
-        id="contact"
-        className="py-28 bg-[#3d3431] text-white relative overflow-hidden"
-      >
-        {/* Background glow blobs */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden>
-          <div className="absolute top-1/2 end-0 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#c68a7b]/8 blur-3xl" />
-          <div className="absolute top-0 start-1/4 w-64 h-64 rounded-full bg-[#c68a7b]/6 blur-3xl" />
-        </div>
-        <DotGrid />
-
-        <div className="relative max-w-3xl mx-auto px-6 text-center">
-          <ShineLogo light className="mb-8" />
-
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-4 leading-tight">
-            בואו נעבוד יחד
-          </h2>
-          <p className="text-white/45 text-xl mb-12 font-medium tracking-wide font-sans">
-            לאפשר לעצמך לזרוח
-          </p>
-
-          {/* Contact buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-10">
-            <a
-              href="tel:052-6665061"
-              className="flex items-center gap-2.5 bg-white/6 hover:bg-white/12 border border-white/12 hover:border-white/25 text-white px-7 py-3.5 rounded-full transition-all duration-200 text-sm font-medium font-sans"
+          <Reveal>
+            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
+              תחומי פעילות
+            </span>
+            <h2
+              style={{
+                fontFamily: "'Frank Ruhl Libre', serif",
+                fontSize: 'clamp(38px, 4.5vw, 60px)',
+                fontWeight: 900,
+                lineHeight: 1.1,
+                color: DARK,
+                marginBottom: 56,
+              }}
             >
-              <Phone size={15} />
-              052-6665061
-            </a>
-            <a
-              href="mailto:michal@slonim.co.il"
-              className="flex items-center gap-2.5 bg-white/6 hover:bg-white/12 border border-white/12 hover:border-white/25 text-white px-7 py-3.5 rounded-full transition-all duration-200 text-sm font-medium font-sans"
+              מה אני מציעה
+            </h2>
+          </Reveal>
+
+          {[
+            { num: '01', title: 'סדנאות וליווי למנהלים ועובדים', desc: 'התמודדות עם לחץ ועומס, ניהול כעסים, חיזוק מוטיבציה והנעת עובדים' },
+            { num: '02', title: 'חיבור בין ממשקים וצוותים', desc: 'שיפור תקשורת ושיתופי פעולה פנים-ארגוניים' },
+            { num: '03', title: 'שירות מצוין מבפנים החוצה', desc: 'פיתוח תודעת שירות דרך ניהול מודע של תגובות ודפוסים' },
+            { num: '04', title: 'ליווי אישי למנהלים', desc: 'תהליך עומק אישי לפיתוח מנהיגות מתוך יציבות ובהירות' },
+            { num: '05', title: 'הרצאות השראה', desc: 'חיבור בין מנהיגות, ניהול ודינמיקות אנושיות בארגון' },
+          ].map((item, i) => (
+            <Reveal key={i} delay={i * 60}>
+              <div className="svc-row">
+                <span
+                  style={{
+                    fontFamily: "'Frank Ruhl Libre', serif",
+                    fontSize: 12,
+                    color: ACCENT,
+                    fontWeight: 700,
+                    minWidth: 28,
+                    letterSpacing: '0.04em',
+                    flexShrink: 0,
+                  }}
+                >
+                  {item.num}
+                </span>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(19px, 2.2vw, 27px)', fontWeight: 700, color: DARK, marginBottom: 4 }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: 14, color: 'rgba(61,52,49,0.55)', lineHeight: 1.6 }}>{item.desc}</p>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
+          WHY ME — 2×2 bordered grid, no cards
+      ══════════════════════════════════════════════════════════════ */}
+      <section id="why" style={{ background: BG, padding: 0 }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
+
+          <Reveal>
+            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 52 }}>
+              למה לבחור בי
+            </span>
+          </Reveal>
+
+          <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
+            {[
+              { title: 'ניסיון רחב ומשולב', desc: 'ניסיון ניהולי, ארגוני ואימוני רחב – מהשטח ומהלב. לא מלמדת את מה שלא חייתי.' },
+              { title: 'שילוב ייחודי', desc: 'עומק רגשי יחד עם פרקטיקה ניהולית – גישה שנדירה בתחום ומייצרת תוצאות שנשארות.' },
+              { title: 'ממוקדת יישום', desc: 'גישה ממוקדת בהטמעה בשטח ולא רק בלמידה תיאורטית. השינוי קורה כאן ועכשיו.' },
+              { title: 'ראייה מערכתית', desc: 'ראייה מערכתית לצד פיתוח אישי – גם וגם, ולא בחירה בין השניים.' },
+            ].map((item, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <div
+                  className="why-cell"
+                  style={{
+                    borderBottom: i < 2 ? '1px solid rgba(61,52,49,0.08)' : 'none',
+                    borderInlineEnd: i % 2 === 0 ? '1px solid rgba(61,52,49,0.08)' : 'none',
+                  }}
+                >
+                  <h3 style={{ fontFamily: "'Frank Ruhl Libre', serif", fontSize: 'clamp(20px, 2.2vw, 28px)', fontWeight: 700, color: DARK, marginBottom: 14 }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ fontSize: 15, color: 'rgba(61,52,49,0.58)', lineHeight: 1.75 }}>{item.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
+          CTA / FOOTER — terracotta, warm, confident
+      ══════════════════════════════════════════════════════════════ */}
+      <section id="contact" style={{ background: ACCENT, padding: 0, position: 'relative', overflow: 'hidden' }}>
+        {/* Ghost "SHINE" watermark */}
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontFamily: "'Frank Ruhl Libre', serif",
+            fontSize: 'clamp(120px, 22vw, 280px)',
+            fontWeight: 900,
+            color: 'rgba(61,52,49,0.055)',
+            userSelect: 'none',
+            pointerEvents: 'none',
+            lineHeight: 1,
+          }}
+        >
+          SHINE
+        </div>
+
+        <div className="section-inner" style={{ maxWidth: 780, margin: '0 auto', padding: '120px 40px 80px', textAlign: 'center', position: 'relative' }}>
+
+          <Reveal>
+            <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(61,52,49,0.55)', marginBottom: 20 }}>
+              SHINE By Michal Slonim
+            </p>
+            <h2
+              style={{
+                fontFamily: "'Frank Ruhl Libre', serif",
+                fontSize: 'clamp(44px, 7vw, 96px)',
+                fontWeight: 900,
+                lineHeight: 0.95,
+                marginBottom: 16,
+                color: DARK,
+              }}
             >
-              <Mail size={15} />
-              michal@slonim.co.il
-            </a>
-          </div>
+              בואו נעבוד יחד
+            </h2>
+            <p style={{ fontSize: 20, color: 'rgba(61,52,49,0.62)', marginBottom: 52, fontWeight: 400 }}>
+              לאפשר לעצמך לזרוח
+            </p>
+          </Reveal>
 
-          {/* Primary CTA */}
-          <a
-            href="tel:052-6665061"
-            className="inline-block bg-[#c68a7b] text-white px-12 py-4 rounded-full text-lg font-bold hover:bg-[#b87a6a] transition-all duration-200 shadow-2xl shadow-[#c68a7b]/25 hover:-translate-y-1 font-sans"
-          >
-            צרי קשר עכשיו
-          </a>
+          <Reveal delay={150}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
+              <a href="tel:052-6665061" className="btn-dark">
+                <Phone size={15} strokeWidth={2.2} />
+                052-6665061
+              </a>
+              <a href="mailto:michal@slonim.co.il" className="btn-ghost">
+                <Mail size={15} strokeWidth={2.2} />
+                michal@slonim.co.il
+              </a>
+            </div>
+          </Reveal>
 
-          <div className="mt-16 pt-8 border-t border-white/10 text-white/30 text-xs tracking-wider font-sans">
-            © 2025 מיכל סלונים &nbsp;·&nbsp; SHINE By Michal Slonim &nbsp;·&nbsp; michal@slonim.co.il
-          </div>
+          <Reveal delay={260}>
+            <div style={{ marginTop: 80, paddingTop: 28, borderTop: '1px solid rgba(61,52,49,0.15)', color: 'rgba(61,52,49,0.42)', fontSize: 12, letterSpacing: '0.04em' }}>
+              © 2025 מיכל סלונים · SHINE By Michal Slonim · michal@slonim.co.il
+            </div>
+          </Reveal>
         </div>
       </section>
     </div>
