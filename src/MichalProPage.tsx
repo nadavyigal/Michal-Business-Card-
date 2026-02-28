@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Mail, Globe, GraduationCap, Instagram } from 'lucide-react';
+import { Phone, Mail, Globe, GraduationCap, Instagram, Building2 } from 'lucide-react';
 import michalPhoto from '../michal-photo.jpg';
+import { captureEvent, trackContactClick, withBusinessCardUtm } from './analytics/posthog';
 
 // ── Scroll-reveal hook ────────────────────────────────────────────────────────
 function useReveal(threshold = 0.12) {
@@ -53,6 +54,14 @@ const DARK = '#35586f';
 const ACCENT = '#c68479';
 const LIGHT = '#f3e5d6';
 const DEEP = '#27465e';
+const PAGE_NAME = 'michal_business_card';
+const WEBSITE_HOME_URL = withBusinessCardUtm('https://www.michalslonim.com/', 'website_home');
+const CLINIC_ORGS_URL = withBusinessCardUtm(
+  'https://www.michalslonim.com/%D7%A7%D7%9C%D7%99%D7%A0%D7%99%D7%A7%D7%94-%D7%9C%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%99%D7%9D-1',
+  'clinic_for_organizations'
+);
+const ONLINE_COURSE_URL = withBusinessCardUtm('https://www.michalslonim.com/webinar-registration', 'online_course');
+const INSTAGRAM_URL = 'https://www.instagram.com/michal_slonim_life_coach?igsh=MTJwZjByd2xhdm5scw%3D%3D&utm_source=qr';
 const ABOUT_HIGHLIGHT: React.CSSProperties = {
   background: 'linear-gradient(180deg, rgba(198,132,121,0.16) 0%, rgba(198,132,121,0.34) 100%)',
   color: BG,
@@ -65,10 +74,89 @@ const ABOUT_HIGHLIGHT: React.CSSProperties = {
 export default function MichalProPage() {
   const [scrolled, setScrolled] = useState(false);
 
+  const trackResourceLinkClick = (resource: 'website' | 'clinic_for_organizations' | 'online_course' | 'instagram', destinationUrl: string) => {
+    captureEvent('resource_link_clicked', {
+      page_name: PAGE_NAME,
+      property: 'business_card',
+      resource,
+      destination_url: destinationUrl,
+    });
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    captureEvent('business_card_page_viewed', {
+      page_name: PAGE_NAME,
+      property: 'business_card',
+      page_path: window.location.pathname,
+      page_url: window.location.href,
+      page_title: document.title,
+    });
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['about', 'experience', 'services', 'why', 'contact'];
+    const seen = new Set<string>();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = (entry.target as HTMLElement).id;
+          if (!id || seen.has(id)) return;
+
+          seen.add(id);
+          captureEvent('section_viewed', {
+            page_name: PAGE_NAME,
+            property: 'business_card',
+            section_id: id,
+          });
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const milestones = [25, 50, 75, 100];
+    const reachedMilestones = new Set<number>();
+
+    const onScrollDepth = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+
+      const depth = Math.min(100, Math.round((window.scrollY / maxScroll) * 100));
+      milestones.forEach((milestone) => {
+        if (depth >= milestone && !reachedMilestones.has(milestone)) {
+          reachedMilestones.add(milestone);
+          captureEvent('scroll_depth_reached', {
+            page_name: PAGE_NAME,
+            property: 'business_card',
+            depth_percent: milestone,
+          });
+        }
+      });
+    };
+
+    window.addEventListener('scroll', onScrollDepth, { passive: true });
+    window.addEventListener('resize', onScrollDepth);
+    onScrollDepth();
+    return () => {
+      window.removeEventListener('scroll', onScrollDepth);
+      window.removeEventListener('resize', onScrollDepth);
+    };
   }, []);
 
   return (
@@ -254,11 +342,21 @@ export default function MichalProPage() {
           </div>
           {/* Contact */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
-            <a href="tel:052-6665061" className="hdr-link" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13, fontWeight: 500 }}>
+            <a
+              href="tel:052-6665061"
+              className="hdr-link"
+              style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13, fontWeight: 500 }}
+              onClick={() => trackContactClick('phone', 'header')}
+            >
               <Phone size={12} strokeWidth={2.2} />
               052-6665061
             </a>
-            <a href="mailto:michal@slonim.co.il" className="hdr-link email-link" style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13 }}>
+            <a
+              href="mailto:michal@slonim.co.il"
+              className="hdr-link email-link"
+              style={{ display: 'flex', alignItems: 'center', gap: 5, fontSize: 13 }}
+              onClick={() => trackContactClick('email', 'header')}
+            >
               <Mail size={12} strokeWidth={2.2} />
               michal@slonim.co.il
             </a>
@@ -376,7 +474,17 @@ export default function MichalProPage() {
 
           {/* CTA */}
           <div className="ha5">
-            <a href="#contact" className="hero-cta">
+            <a
+              href="#contact"
+              className="hero-cta"
+              onClick={() =>
+                captureEvent('hero_cta_clicked', {
+                  page_name: PAGE_NAME,
+                  property: 'business_card',
+                  target_section: 'contact',
+                })
+              }
+            >
               בואו נדבר
             </a>
           </div>
@@ -731,11 +839,11 @@ export default function MichalProPage() {
 
           <Reveal delay={150}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'center' }}>
-              <a href="tel:052-6665061" className="btn-dark">
+              <a href="tel:052-6665061" className="btn-dark" onClick={() => trackContactClick('phone', 'contact_section')}>
                 <Phone size={15} strokeWidth={2.2} />
                 052-6665061
               </a>
-              <a href="mailto:michal@slonim.co.il" className="btn-ghost">
+              <a href="mailto:michal@slonim.co.il" className="btn-ghost" onClick={() => trackContactClick('email', 'contact_section')}>
                 <Mail size={15} strokeWidth={2.2} />
                 michal@slonim.co.il
               </a>
@@ -749,28 +857,41 @@ export default function MichalProPage() {
               </p>
               <div className="resource-links">
                 <a
-                  href="https://www.michalslonim.com/%D7%A7%D7%9C%D7%99%D7%A0%D7%99%D7%A7%D7%94-%D7%9C%D7%90%D7%A8%D7%92%D7%95%D7%A0%D7%99%D7%9D-1"
+                  href={WEBSITE_HOME_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="resource-link"
+                  onClick={() => trackResourceLinkClick('website', WEBSITE_HOME_URL)}
                 >
                   <Globe size={15} strokeWidth={2} />
-                  אתר התוכן
+                  האתר הרשמי
                 </a>
                 <a
-                  href="https://www.michalslonim.com/webinar-registration"
+                  href={CLINIC_ORGS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="resource-link"
+                  onClick={() => trackResourceLinkClick('clinic_for_organizations', CLINIC_ORGS_URL)}
+                >
+                  <Building2 size={15} strokeWidth={2} />
+                  קליניקה לארגונים
+                </a>
+                <a
+                  href={ONLINE_COURSE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="resource-link"
+                  onClick={() => trackResourceLinkClick('online_course', ONLINE_COURSE_URL)}
                 >
                   <GraduationCap size={15} strokeWidth={2} />
                   קורס אונליין
                 </a>
                 <a
-                  href="https://www.instagram.com/michal_slonim_life_coach?igsh=MTJwZjByd2xhdm5scw%3D%3D&utm_source=qr"
+                  href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="resource-link"
+                  onClick={() => trackResourceLinkClick('instagram', INSTAGRAM_URL)}
                 >
                   <Instagram size={15} strokeWidth={2} />
                   אינסטגרם

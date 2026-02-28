@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "vite --force",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "posthog:dashboard": "node scripts/posthog/create-unified-dashboard.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.462.0",
+    "posthog-js": "^1.356.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -23,5 +25,3 @@
     "vite": "^5.4.0"
   }
 }
-
-

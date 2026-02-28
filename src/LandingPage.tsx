@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { useEffect } from 'react';
 import {
   ArrowLeft,
   Calendar,
@@ -13,6 +13,7 @@ import {
   Users,
   MessageSquare,
 } from 'lucide-react';
+import { captureEvent } from './analytics/posthog';
 
 import heroMain from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.06.01_df5423a4.jpg';
 import heroCouple from '../תמונה של WhatsApp‏ 2025-12-01 בשעה 13.07.13_a8a63e21.jpg';
@@ -167,18 +168,64 @@ const stats = [
   { label: 'שיעורים', value: '7' },
   { label: 'ימי שלישי', value: '10:00-13:00' },
 ];
+const PAGE_NAME = 'website_course_landing';
 
 const LandingPage: React.FC = () => {
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id: string, source = 'internal_cta') => {
+    captureEvent('section_navigation_clicked', {
+      property: 'website',
+      page_name: PAGE_NAME,
+      target_section: id,
+      source,
+    });
+
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
+  useEffect(() => {
+    captureEvent('site_page_viewed', {
+      property: 'website',
+      page_name: PAGE_NAME,
+      page_path: window.location.pathname,
+      page_url: window.location.href,
+      page_title: document.title,
+    });
+  }, []);
+
+  useEffect(() => {
+    const sectionIds = ['about', 'fit', 'program', 'pricing', 'faq', 'cta'];
+    const seen = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const id = (entry.target as HTMLElement).id;
+          if (!id || seen.has(id)) return;
+          seen.add(id);
+          captureEvent('section_viewed', {
+            property: 'website',
+            page_name: PAGE_NAME,
+            section_id: id,
+          });
+        });
+      },
+      { threshold: 0.45 }
+    );
+
+    sectionIds.forEach((id) => {
+      const section = document.getElementById(id);
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const primaryCta = (
     <button
-      onClick={() => scrollToSection('pricing')}
+      onClick={() => scrollToSection('pricing', 'hero_primary_cta')}
       className="group relative flex items-center justify-center gap-2 px-6 py-4 md:px-8 md:py-5 rounded-full bg-gradient-to-r from-[#d4442e] via-[#c23822] to-[#b02d18] text-white font-bold text-base md:text-lg shadow-2xl shadow-red-600/50 hover:shadow-red-600/70 hover:scale-[1.05] active:scale-[0.98] transition-all duration-300 overflow-hidden min-h-[44px] w-full sm:w-auto border-2 border-red-700"
     >
       <span className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -934,3 +981,4 @@ const LandingPage: React.FC = () => {
 };
 
 export default LandingPage;
+
