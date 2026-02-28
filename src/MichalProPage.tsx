@@ -314,9 +314,24 @@ export default function MichalProPage() {
           {/* Accent line */}
           <div className="ha3" style={{ width: 44, height: 2, background: ACCENT, marginBottom: 20 }} />
 
-          {/* Tagline */}
+          {/* Focus line */}
           <p
             className="ha3"
+            style={{
+              fontSize: 12,
+              letterSpacing: '0.08em',
+              color: ACCENT,
+              lineHeight: 1.55,
+              marginBottom: 16,
+              fontWeight: 700,
+            }}
+          >
+            פיתוח מנהלים | עובדים | ארגון
+          </p>
+
+          {/* Tagline */}
+          <p
+            className="ha4"
             style={{
               fontSize: 'clamp(16px, 1.7vw, 21px)',
               color: 'rgba(53,88,112,0.75)',
@@ -326,32 +341,8 @@ export default function MichalProPage() {
               fontWeight: 400,
             }}
           >
-            מפתחת מנהלים ועובדים —{' '}
-            <em style={{ fontFamily: "'David Libre', serif", fontStyle: 'normal', color: ACCENT, fontWeight: 700 }}>
-              מבפנים החוצה
-            </em>
+            מפתחת מנהלים ועובדים – מבפנים החוצה
           </p>
-
-          {/* Specialty tags */}
-          <div className="ha4" style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 44 }}>
-            {['פיתוח מנהלים', 'פיתוח עובדים', 'תרבות ארגונית'].map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  padding: '5px 15px',
-                  borderRadius: 999,
-                  border: '1px solid rgba(198,132,121,0.36)',
-                  color: ACCENT,
-                  fontSize: 12,
-                  fontWeight: 700,
-                  background: 'rgba(198,132,121,0.14)',
-                  letterSpacing: '0.02em',
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
 
           {/* CTA */}
           <div className="ha5">
@@ -439,37 +430,62 @@ export default function MichalProPage() {
                 paddingInlineStart: 28,
               }}
             >
-              "אני לא מלמדת רק מיומנויות טכניות — אני עוזרת לאנשים לזהות מה עוצר אותם ולפעול מתוך בהירות."
+              "אני לא מלמדת רק מיומנויות טכניות. אני עוזרת למנהלים להבין מה קורה להם ברגעי לחץ, לזהות היכן הם מופעלים, לווסת את עצמם ולפעול מתוך בהירות."
             </blockquote>
           </Reveal>
 
           {/* Two-column body */}
           <div className="about-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 52, marginBottom: 64 }}>
             <Reveal delay={160}>
-              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.62)' }}>
-                אני מלווה מנהלים ועובדים לפתח{' '}
-                <strong style={{ color: BG, fontWeight: 600 }}>יציבות פנימית וכלים פרקטיים</strong>
-                {' '}— להתמודד בצורה בוגרת, אחראית ואפקטיבית עם עומס, לחץ, קונפליקטים ואתגרי ניהול.
-              </p>
+              <div style={{ display: 'grid', gap: 20 }}>
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.66)' }}>
+                  אני מלווה מנהלים ועובדים לפתח יציבות פנימית וכלים פרקטיים, כדי להתמודד בצורה בוגרת, אחראית ואפקטיבית עם עומס, לחץ, קונפליקטים ואתגרי ניהול.
+                </p>
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.66)' }}>
+                  בעידן שבו ה-AI מחליף את הפעולות הטכניות והלוגיות, היתרון האנושי המרכזי שנותר למנהל הוא הדיוק שלו. הערך של מנהל נמדד היום ביכולת שלו לווסת את המערכת הפנימית שלו כדי לייצר חדות, ביטחון וביצועים בשטח.
+                </p>
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.66)' }}>
+                  מנהלים שלא יפתחו מיומנויות של ויסות ודיוק כירורגי מול העובדים שלהם, ימצאו את עצמם שחוקים ומנוהלים על ידי הסטרס.
+                </p>
+              </div>
             </Reveal>
             <Reveal delay={240}>
-              <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.62)' }}>
-                השילוב בין מיומנויות בין-אישיות לבין כלים פרקטיים יוצר{' '}
-                <strong style={{ color: BG, fontWeight: 600 }}>שינוי התנהגותי עמוק</strong>
-                {' '}שמחלחל לתרבות הארגונית ומחזיק לאורך זמן.
-              </p>
+              <div style={{ display: 'grid', gap: 20 }}>
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.66)' }}>
+                  העבודה שלי מחברת בין מיומנויות ניהוליות לבין עומק בין־אישי ורגשי – תחום שלרוב אינו מקבל מענה מספק בהכשרות מקצועיות.
+                </p>
+                <p style={{ fontSize: 17, lineHeight: 1.85, color: 'rgba(248,240,231,0.66)' }}>
+                  השילוב בין מיומנויות בין־אישיות לבין כלים פרקטיים יוצר שינוי התנהגותי עמוק שמחלחל לתרבות הארגונית ומחזיק לאורך זמן.
+                </p>
+              </div>
             </Reveal>
           </div>
 
           {/* Outcome strip — inline, no cards */}
           <Reveal delay={320}>
             <div style={{ borderTop: '1px solid rgba(248,240,231,0.1)', paddingTop: 40, display: 'flex', gap: 40, flexWrap: 'wrap' }}>
-              {['מנהלים שמובילים בביטחון', 'צוותים שעובדים בשיתוף פעולה', 'ארגון שפועל מתוך בהירות'].map((item) => (
+              {['מנהלים שמובילים בביטחון', 'צוותים שעובדים בשיתוף פעולה', 'ארגון שפועל מתוך בהירות, אחריות ומוטיבציה גבוהה'].map((item) => (
                 <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{ width: 5, height: 5, borderRadius: '50%', background: ACCENT, flexShrink: 0 }} />
                   <span style={{ fontSize: 14, color: 'rgba(248,240,231,0.55)', fontWeight: 500 }}>{item}</span>
                 </div>
               ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={380}>
+            <div
+              style={{
+                marginTop: 40,
+                padding: '26px 30px',
+                border: '1px solid rgba(248,240,231,0.2)',
+                background: 'rgba(248,240,231,0.06)',
+                borderRadius: 6,
+              }}
+            >
+              <p style={{ fontSize: 16, lineHeight: 1.85, color: 'rgba(248,240,231,0.72)' }}>
+                התוכנית מבוססת על מודל ר.ו.ב שפיתחתי (ראייה, ויסות, ביצוע) – פרוטוקול עבודה המלמד מנהלים איך לזהות ברגע האמת את מה שקורה "מתחת לפני השטח" מול העובד, מול עצמם ומול צרכי הארגון. המודל מאפשר למנהל לווסת תגובות אוטומטיות ותגובתיות, ולבחור מתוך בהירות את הפעולה המדויקת ביותר לביצוע.
+              </p>
             </div>
           </Reveal>
         </div>
@@ -482,9 +498,6 @@ export default function MichalProPage() {
         <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
           <Reveal>
-            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
-              ניסיון מקצועי
-            </span>
             <h2
               style={{
                 fontFamily: "'David Libre', serif",
@@ -495,8 +508,7 @@ export default function MichalProPage() {
                 marginBottom: 72,
               }}
             >
-              שנים של שטח.{' '}
-              <span style={{ color: 'rgba(53,88,112,0.28)' }}>לא רק תיאוריה.</span>
+              ניסיון מקצועי
             </h2>
           </Reveal>
 
@@ -538,10 +550,10 @@ export default function MichalProPage() {
           {/* Timeline */}
           <div style={{ maxWidth: 680 }}>
             {[
-              { badge: '12 שנים', text: 'כסוכנת ביטוח ומנהלת סוכנות ביטוח גדולה – ניהול כ-20 עובדים ואלפי לקוחות, אסטרטגיה, פיתוח תהליכים ועבודה מול מנכ"לים ובכירים במשק.' },
+              { badge: '12 שנים', text: '12 שנים כסוכנת ביטוח ומנהלת סוכנות ביטוח גדולה (כ־20 עובדים ואלפי לקוחות) – ניהול עובדים, אסטרטגיה, פיתוח תהליכים ועבודה מול מנכ”לים ובכירים במשק' },
               { badge: 'מיזוג', text: 'ליווי מכירה, מיזוג והטמעת תהליכים לאחר מכירת הסוכנות.' },
               { badge: '12 שנים', text: 'מאמנת אישית וזוגית בשיטת סאטיה.' },
-              { badge: 'דיגיטל', text: 'יוצרת הקורס הדיגיטלי "מחוברים מחדש" – תקשורת וניהול קונפליקטים.' },
+              { badge: 'דיגיטל', text: 'יוצרת הקורס הדיגיטלי “מחוברים מחדש” – תקשורת וניהול קונפליקטים.' },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 80}>
                 <div style={{ display: 'flex', gap: 24, alignItems: 'flex-start', padding: '24px 0', borderBottom: i < 3 ? '1px solid rgba(53,88,112,0.07)' : 'none' }}>
@@ -566,7 +578,7 @@ export default function MichalProPage() {
               }}
             >
               <p style={{ fontFamily: "'David Libre', serif", fontSize: 'clamp(17px, 2vw, 22px)', fontWeight: 500, color: DARK, lineHeight: 1.62 }}>
-                השילוב בין ניסיון ניהולי-ארגוני עמוק לבין עבודה אימונית ורגשית מאפשר לי לייצר תהליכים שמובילים לשינוי אמיתי שנשאר.
+                השילוב בין ניסיון ניהולי־ארגוני עמוק לבין עבודה אימונית ורגשית מאפשר לי ליצור תהליכים שמובילים לשינוי אמיתי שנשאר.
               </p>
             </div>
           </Reveal>
@@ -580,9 +592,6 @@ export default function MichalProPage() {
         <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
 
           <Reveal>
-            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
-              תחומי פעילות
-            </span>
             <h2
               style={{
                 fontFamily: "'David Libre', serif",
@@ -593,15 +602,15 @@ export default function MichalProPage() {
                 marginBottom: 56,
               }}
             >
-              מה אני מציעה
+              תחומי פעילות
             </h2>
           </Reveal>
 
           {[
-            { num: '01', title: 'סדנאות וליווי למנהלים ועובדים', desc: 'התמודדות עם לחץ ועומס, ניהול כעסים, חיזוק מוטיבציה והנעת עובדים' },
-            { num: '02', title: 'חיבור בין ממשקים וצוותים', desc: 'שיפור תקשורת ושיתופי פעולה פנים-ארגוניים' },
+            { num: '01', title: 'סדנאות וליווי למנהלים ולעובדים', desc: 'התמודדות עם לחץ ועומס, ניהול כעסים, חיזוק מוטיבציה, הנעת עובדים' },
+            { num: '02', title: 'חיבור בין ממשקים וצוותים', desc: 'שיפור תקשורת ושיתופי פעולה פנים־ארגוניים' },
             { num: '03', title: 'שירות מצוין מבפנים החוצה', desc: 'פיתוח תודעת שירות דרך ניהול מודע של תגובות ודפוסים' },
-            { num: '04', title: 'ליווי אישי למנהלים', desc: 'תהליך עומק אישי לפיתוח מנהיגות מתוך יציבות ובהירות' },
+            { num: '04', title: 'ליווי אישי למנהלים', desc: 'ליווי אישי למנהלים' },
             { num: '05', title: 'הרצאות השראה', desc: 'חיבור בין מנהיגות, ניהול ודינמיקות אנושיות בארגון' },
           ].map((item, i) => (
             <Reveal key={i} delay={i * 60}>
@@ -645,10 +654,10 @@ export default function MichalProPage() {
 
           <div className="why-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr' }}>
             {[
-              { title: 'ניסיון רחב ומשולב', desc: 'ניסיון ניהולי, ארגוני ואימוני רחב – מהשטח ומהלב. לא מלמדת את מה שלא חייתי.' },
-              { title: 'שילוב ייחודי', desc: 'עומק רגשי יחד עם פרקטיקה ניהולית – גישה שנדירה בתחום ומייצרת תוצאות שנשארות.' },
-              { title: 'ממוקדת יישום', desc: 'גישה ממוקדת בהטמעה בשטח ולא רק בלמידה תיאורטית. השינוי קורה כאן ועכשיו.' },
-              { title: 'ראייה מערכתית', desc: 'ראייה מערכתית לצד פיתוח אישי – גם וגם, ולא בחירה בין השניים.' },
+              { title: 'ניסיון רחב', desc: 'ניסיון ניהולי, ארגוני ואימוני רחב' },
+              { title: 'שילוב ייחודי', desc: 'שילוב ייחודי של עומק רגשי עם פרקטיקה ניהולית' },
+              { title: 'יישום והטמעה', desc: 'גישה ממוקדת יישום והטמעה בשטח' },
+              { title: 'ראייה מערכתית', desc: 'ראייה מערכתית לצד פיתוח אישי – גם וגם' },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 80}>
                 <div
