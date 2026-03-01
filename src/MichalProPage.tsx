@@ -714,7 +714,8 @@ export default function MichalProPage() {
             { num: '02', title: 'חיבור בין ממשקים וצוותים', desc: 'שיפור תקשורת ושיתופי פעולה פנים־ארגוניים' },
             { num: '03', title: 'שירות מצוין מבפנים החוצה', desc: 'פיתוח תודעת שירות דרך ניהול מודע של תגובות ודפוסים' },
             { num: '04', title: 'ליווי אישי למנהלים', desc: 'ליווי אישי למנהלים' },
-            { num: '05', title: 'הרצאות השראה', desc: 'חיבור בין מנהיגות, ניהול ודינמיקות אנושיות בארגון' },
+            { num: '05', title: 'תהליכי עבודה משותפים (לצמדים או ממשקים ניהוליים)', desc: 'ליווי ממוקד לשני עובדים או יוֹתר (שותפים לניהול, ממשקים לחוצים). פתרון "פלונטרים" בתקשורת ויצירת סנכרון שחוסך זמן ואנרגיה.' },
+            { num: '06', title: 'הרצאות והשראה', desc: 'חיבור בין מנהיגות, ניהול ודינמיקות אנושיות בארגון' },
           ].map((item, i) => (
             <Reveal key={i} delay={i * 60}>
               <div className="svc-row">
@@ -833,7 +834,7 @@ export default function MichalProPage() {
               בואו נעבוד יחד
             </h2>
             <p style={{ fontSize: 20, color: 'rgba(39,70,94,0.72)', marginBottom: 52, fontWeight: 400 }}>
-              לאפשר לעצמך לזרוח
+              ביחד נאפשר לך ולארגון לזרוח
             </p>
           </Reveal>
 
@@ -864,7 +865,7 @@ export default function MichalProPage() {
                   onClick={() => trackResourceLinkClick('website', WEBSITE_HOME_URL)}
                 >
                   <Globe size={15} strokeWidth={2} />
-                  האתר הרשמי
+                  אתר הבית
                 </a>
                 <a
                   href={CLINIC_ORGS_URL}
@@ -884,7 +885,7 @@ export default function MichalProPage() {
                   onClick={() => trackResourceLinkClick('online_course', ONLINE_COURSE_URL)}
                 >
                   <GraduationCap size={15} strokeWidth={2} />
-                  קורס אונליין
+                  מחוברים מחדש - קורס דיגיטלי
                 </a>
                 <a
                   href={INSTAGRAM_URL}
