@@ -69,6 +69,28 @@ const ABOUT_HIGHLIGHT: React.CSSProperties = {
   borderRadius: 4,
   fontWeight: 700,
 };
+const RECOMMENDATIONS = [
+  {
+    name: 'עו"ד אילנה סגיס',
+    title: 'סמנכ"ל, מנהלת תחום תביעות רכוש וסיכונים מיוחדים',
+    text: 'בשבוע שעבר השתתפו בהרצאה של מיכל סלונים "לחזור לעצמי, בעבודה". מדובר ביוזמה נהדרת שאפשרה לעובדי המחלקה לעצור למשך שעה את סדר היום הלחוץ ולקבל כלים פרקטיים להתמודדות בעבודה. העובדים לקחו חלק פעיל בהרצאה וניכר היה שהנושא רלוונטי לכל אחת ואחד. לסיכום, הרצאה מעשירה ומומלצת לכל ארגון.',
+  },
+  {
+    name: 'מורן זיסר',
+    title: 'מנכ"לית בי-קום פתרונות תוכנה',
+    text: 'היה לנו העונג לארח את מיכל בחברה שלנו לשני סבבים של אימון עבור שתי קבוצות. הכלים ליישום שמיכל מלמדת הם פשוטים להבנה וליישום, והתהליך כולו היה מעורר השראה. לקחתי ממנו המון הן לרמה המקצועית והן לרמה האישית של כל אחד ואחד. ממליצה בחום לכל עסק קטן כגדול.',
+  },
+  {
+    name: 'מאיה דיין',
+    title: 'משנה למנכ"ל, חברת פרוקטיב',
+    text: 'תודה על הרצאה מעניינת שנגעה באופן מדויק בצרכים של כל עובדי החברה. ההרצאה סיפקה כלים חדשים וברורים ליישום, פתחה מודעות והדגישה שהפוקוס הוא בנו — כל אחד אחראי ושולט בדרך שבה הוא מקבל ומגיב ללחץ. הרצאה בגובה העיניים עם מסרים ישימים.',
+  },
+  {
+    name: 'יעל נסים גליק',
+    title: 'מנהלת Top School, מנורה מבטחים ביטוח',
+    text: 'הזמנתי את מיכל לתת לסוכנים שלנו כלים להתמודד מנטלית עם אתגרי היום יום: עומס, לחץ, שגרה שוחקת, ניהול עובדים ומוטיבציה. ההרצאה הייתה ממוקדת ויעילה, נגעה בכל הנקודות הרלוונטיות ונתנה כלים יישומיים לעבודה ביום יום. ממליצה לכל ארגון לקיים מפגש עם מיכל.',
+  },
+];
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default function MichalProPage() {
@@ -100,7 +122,7 @@ export default function MichalProPage() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['about', 'experience', 'services', 'why', 'contact'];
+    const sectionIds = ['about', 'experience', 'services', 'why', 'recommendations', 'contact'];
     const seen = new Set<string>();
 
     const observer = new IntersectionObserver(
@@ -290,6 +312,24 @@ export default function MichalProPage() {
           color: ${DEEP};
         }
 
+        .reco-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+        }
+        .reco-card {
+          background: rgba(248,240,231,0.78);
+          border: 1px solid rgba(53,88,112,0.14);
+          border-radius: 14px;
+          padding: 30px 28px;
+          transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+        }
+        .reco-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 12px 24px rgba(53,88,112,0.09);
+          border-color: rgba(53,88,112,0.24);
+        }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
           .hero-wrap { flex-direction: column !important; }
@@ -306,6 +346,8 @@ export default function MichalProPage() {
           .hero-h1 { font-size: clamp(64px, 20vw, 100px) !important; }
           .about-grid   { grid-template-columns: 1fr !important; gap: 28px !important; }
           .why-grid { grid-template-columns: 1fr !important; }
+          .reco-grid { grid-template-columns: 1fr !important; }
+          .reco-card { padding: 26px 20px !important; }
           .why-cell {
             border-inline-end: none !important;
             padding: 36px 24px !important;
@@ -429,7 +471,7 @@ export default function MichalProPage() {
             style={{
               fontFamily: "'Assistant', sans-serif",
               fontSize: 'clamp(76px, 10.5vw, 148px)',
-              fontWeight: 900,
+              fontWeight: 500,
               lineHeight: 0.92,
               color: DARK,
               marginBottom: 22,
@@ -776,6 +818,48 @@ export default function MichalProPage() {
                   </h3>
                   <p style={{ fontSize: 15, color: 'rgba(53,88,112,0.58)', lineHeight: 1.75 }}>{item.desc}</p>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════
+          RECOMMENDATIONS
+      ══════════════════════════════════════════════════════════════ */}
+      <section id="recommendations" style={{ background: 'linear-gradient(180deg, #f6efe5 0%, #f8f3ec 100%)', padding: 0 }}>
+        <div className="section-inner" style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 48px' }}>
+          <Reveal>
+            <span style={{ display: 'block', fontSize: 10, fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', color: ACCENT, marginBottom: 16 }}>
+              המלצות
+            </span>
+            <h2
+              style={{
+                fontFamily: "'Assistant', sans-serif",
+                fontSize: 'clamp(36px, 4.5vw, 58px)',
+                fontWeight: 700,
+                lineHeight: 1.08,
+                color: DARK,
+                marginBottom: 42,
+              }}
+            >
+              מה אומרים על העבודה איתי
+            </h2>
+          </Reveal>
+
+          <div className="reco-grid">
+            {RECOMMENDATIONS.map((item, i) => (
+              <Reveal key={item.name} delay={i * 70}>
+                <article className="reco-card">
+                  <div style={{ fontSize: 46, lineHeight: 0.75, color: 'rgba(198,132,121,0.46)', marginBottom: 14, fontWeight: 700 }}>״</div>
+                  <p style={{ fontSize: 17, lineHeight: 1.9, color: 'rgba(53,88,112,0.86)', marginBottom: 18 }}>
+                    {item.text}
+                  </p>
+                  <div style={{ borderTop: '1px solid rgba(53,88,112,0.1)', paddingTop: 14 }}>
+                    <div style={{ fontSize: 20, fontWeight: 700, color: DARK, marginBottom: 4 }}>{item.name}</div>
+                    <div style={{ fontSize: 14, color: 'rgba(53,88,112,0.62)', lineHeight: 1.45 }}>{item.title}</div>
+                  </div>
+                </article>
               </Reveal>
             ))}
           </div>
