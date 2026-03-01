@@ -1,0 +1,74 @@
+{
+  "dashboard_name": "Michal - Unified Performance",
+  "description": "Single dashboard for business card, website, and clinic-for-organizations funnel",
+  "insights": [
+    {
+      "name": "Visitors by Property",
+      "type": "trends",
+      "events": ["business_card_page_viewed", "site_page_viewed"],
+      "breakdown": "property"
+    },
+    {
+      "name": "Traffic Source Mix",
+      "type": "trends",
+      "events": ["business_card_page_viewed", "site_page_viewed"],
+      "breakdown": "utm_source"
+    },
+    {
+      "name": "Business Card Engagement Funnel",
+      "type": "funnel",
+      "steps": [
+        "business_card_page_viewed",
+        "section_viewed:section_id=contact",
+        "contact_clicked OR resource_link_clicked"
+      ]
+    },
+    {
+      "name": "Resource Clicks by Destination",
+      "type": "trends",
+      "events": ["resource_link_clicked"],
+      "breakdown": "resource"
+    },
+    {
+      "name": "Contact Intent by Channel",
+      "type": "trends",
+      "events": ["contact_clicked"],
+      "breakdown": "channel"
+    },
+    {
+      "name": "Scroll Depth Distribution",
+      "type": "trends",
+      "events": ["scroll_depth_reached"],
+      "breakdown": "depth_percent",
+      "filters": { "property": "business_card" }
+    },
+    {
+      "name": "Clinic Landing Performance",
+      "type": "trends",
+      "events": ["site_page_viewed", "lead_form_started", "lead_form_submitted"],
+      "filters": { "property": "clinic_for_organizations" }
+    },
+    {
+      "name": "Website to Course Conversion",
+      "type": "funnel",
+      "steps": [
+        "site_page_viewed:property=website",
+        "resource_link_clicked:resource=online_course",
+        "lead_form_submitted"
+      ]
+    },
+    {
+      "name": "Lead Submissions by Property",
+      "type": "trends",
+      "events": ["lead_form_submitted"],
+      "breakdown": "property"
+    },
+    {
+      "name": "Top Pages by Conversion Intent",
+      "type": "trends",
+      "events": ["site_page_viewed", "contact_clicked", "resource_link_clicked"],
+      "breakdown": "page_path"
+    }
+  ]
+}
+
