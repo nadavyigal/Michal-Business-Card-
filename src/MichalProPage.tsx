@@ -918,7 +918,7 @@ export default function MichalProPage() {
               בואו נעבוד יחד
             </h2>
             <p style={{ fontSize: 20, color: 'rgba(39,70,94,0.72)', marginBottom: 52, fontWeight: 400 }}>
-              ביחד נאפשר לך ולארגון לזרוח
+             לאפשר לארגון לזרוח
             </p>
           </Reveal>
 
